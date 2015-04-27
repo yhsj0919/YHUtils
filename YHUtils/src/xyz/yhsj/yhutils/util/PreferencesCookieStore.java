@@ -1,233 +1,299 @@
 /*
- * Copyright (c) 2013. wyouflf (wyouflf@gmail.com)
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ *抽取自AsyncHttpClient的持久化cookie存储类
  */
 
 package xyz.yhsj.yhutils.util;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.text.TextUtils;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.apache.http.client.CookieStore;
 import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.cookie.BasicClientCookie;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.text.TextUtils;
+import android.util.Log;
 
 /**
- * A CookieStore impl, it's save cookie to SharedPreferences.
- *
- * @author michael yang
+ * 持久化存储cookie
  */
+@SuppressWarnings("deprecation")
 public class PreferencesCookieStore implements CookieStore {
+	private static final String LOG_TAG = "PersistentCookieStore";
+	private static final String COOKIE_PREFS = "CookiePrefsFile";
+	private static final String COOKIE_NAME_STORE = "names";
+	private static final String COOKIE_NAME_PREFIX = "cookie_";
+	private final ConcurrentHashMap<String, Cookie> cookies;
+	private final SharedPreferences cookiePrefs;
+	private boolean omitNonPersistentCookies = false;
 
-    private static final String COOKIE_PREFS = "CookiePrefsFile";
-    private static final String COOKIE_NAME_STORE = "names";
-    private static final String COOKIE_NAME_PREFIX = "cookie_";
+	/**
+	 * Construct a persistent cookie store.
+	 *
+	 * @param context
+	 *            Context to attach cookie store to
+	 */
+	public PreferencesCookieStore(Context context) {
+		cookiePrefs = context.getSharedPreferences(COOKIE_PREFS, 0);
+		cookies = new ConcurrentHashMap();
 
-    private final ConcurrentHashMap<String, Cookie> cookies;
-    private final SharedPreferences cookiePrefs;
+		// Load any previously stored cookies into the store
+		String storedCookieNames = cookiePrefs.getString(COOKIE_NAME_STORE,
+				null);
+		if (storedCookieNames != null) {
+			String[] cookieNames = TextUtils.split(storedCookieNames, ",");
+			for (String name : cookieNames) {
+				String encodedCookie = cookiePrefs.getString(COOKIE_NAME_PREFIX
+						+ name, null);
+				if (encodedCookie != null) {
+					Cookie decodedCookie = decodeCookie(encodedCookie);
+					if (decodedCookie != null) {
+						cookies.put(name, decodedCookie);
+					}
+				}
+			}
 
-    /**
-     * Construct a persistent cookie store.
-     */
-    public PreferencesCookieStore(Context context) {
-        cookiePrefs = context.getSharedPreferences(COOKIE_PREFS, Context.MODE_PRIVATE);
-        cookies = new ConcurrentHashMap<String, Cookie>();
+			// Clear out expired cookies
+			clearExpired(new Date());
+		}
+	}
 
-        // Load any previously stored cookies into the store
-        String storedCookieNames = cookiePrefs.getString(COOKIE_NAME_STORE, null);
-        if (storedCookieNames != null) {
-            String[] cookieNames = TextUtils.split(storedCookieNames, ",");
-            for (String name : cookieNames) {
-                String encodedCookie = cookiePrefs.getString(COOKIE_NAME_PREFIX + name, null);
-                if (encodedCookie != null) {
-                    Cookie decodedCookie = decodeCookie(encodedCookie);
-                    if (decodedCookie != null) {
-                        cookies.put(name, decodedCookie);
-                    }
-                }
-            }
+	@Override
+	public void addCookie(Cookie cookie) {
+		if (omitNonPersistentCookies && !cookie.isPersistent())
+			return;
+		String name = cookie.getName() + cookie.getDomain();
 
-            // Clear out expired cookies
-            clearExpired(new Date());
-        }
-    }
+		// Save cookie into local store, or remove if expired
+		if (!cookie.isExpired(new Date())) {
+			cookies.put(name, cookie);
+		} else {
+			cookies.remove(name);
+		}
 
-    @Override
-    public void addCookie(Cookie cookie) {
-        String name = cookie.getName();
+		// Save cookie into persistent store
+		SharedPreferences.Editor prefsWriter = cookiePrefs.edit();
+		prefsWriter.putString(COOKIE_NAME_STORE,
+				TextUtils.join(",", cookies.keySet()));
+		prefsWriter.putString(COOKIE_NAME_PREFIX + name,
+				encodeCookie(new SerializableCookie(cookie)));
+		prefsWriter.commit();
+	}
 
-        // Save cookie into local store, or remove if expired
-        if (!cookie.isExpired(new Date())) {
-            cookies.put(name, cookie);
-        } else {
-            cookies.remove(name);
-        }
+	@Override
+	public void clear() {
+		// Clear cookies from persistent store
+		SharedPreferences.Editor prefsWriter = cookiePrefs.edit();
+		for (String name : cookies.keySet()) {
+			prefsWriter.remove(COOKIE_NAME_PREFIX + name);
+		}
+		prefsWriter.remove(COOKIE_NAME_STORE);
+		prefsWriter.commit();
 
-        // Save cookie into persistent store
-        SharedPreferences.Editor editor = cookiePrefs.edit();
-        editor.putString(COOKIE_NAME_STORE, TextUtils.join(",", cookies.keySet()));
-        editor.putString(COOKIE_NAME_PREFIX + name, encodeCookie(new SerializableCookie(cookie)));
-        editor.commit();
-    }
+		// Clear cookies from local store
+		cookies.clear();
+	}
 
-    @Override
-    public void clear() {
-        // Clear cookies from persistent store
-        SharedPreferences.Editor editor = cookiePrefs.edit();
-        for (String name : cookies.keySet()) {
-            editor.remove(COOKIE_NAME_PREFIX + name);
-        }
-        editor.remove(COOKIE_NAME_STORE);
-        editor.commit();
+	@Override
+	public boolean clearExpired(Date date) {
+		boolean clearedAny = false;
+		SharedPreferences.Editor prefsWriter = cookiePrefs.edit();
 
-        // Clear cookies from local store
-        cookies.clear();
-    }
+		for (ConcurrentHashMap.Entry<String, Cookie> entry : cookies.entrySet()) {
+			String name = entry.getKey();
+			Cookie cookie = entry.getValue();
+			if (cookie.isExpired(date)) {
+				// Clear cookies from local store
+				cookies.remove(name);
 
-    @Override
-    public boolean clearExpired(Date date) {
-        boolean clearedAny = false;
-        SharedPreferences.Editor editor = cookiePrefs.edit();
+				// Clear cookies from persistent store
+				prefsWriter.remove(COOKIE_NAME_PREFIX + name);
 
-        for (ConcurrentHashMap.Entry<String, Cookie> entry : cookies.entrySet()) {
-            String name = entry.getKey();
-            Cookie cookie = entry.getValue();
-            if (cookie.getExpiryDate() == null || cookie.isExpired(date)) {
-                // Remove the cookie by name
-                cookies.remove(name);
+				// We've cleared at least one
+				clearedAny = true;
+			}
+		}
 
-                // Clear cookies from persistent store
-                editor.remove(COOKIE_NAME_PREFIX + name);
+		// Update names in persistent store
+		if (clearedAny) {
+			prefsWriter.putString(COOKIE_NAME_STORE,
+					TextUtils.join(",", cookies.keySet()));
+		}
+		prefsWriter.commit();
 
-                // We've cleared at least one
-                clearedAny = true;
-            }
-        }
+		return clearedAny;
+	}
 
-        // Update names in persistent store
-        if (clearedAny) {
-            editor.putString(COOKIE_NAME_STORE, TextUtils.join(",", cookies.keySet()));
-        }
-        editor.commit();
+	@Override
+	public List<Cookie> getCookies() {
+		return new ArrayList(cookies.values());
+	}
 
-        return clearedAny;
-    }
+	/**
+	 * Will make PersistentCookieStore instance ignore Cookies, which are
+	 * non-persistent by signature (`Cookie.isPersistent`)
+	 *
+	 * @param omitNonPersistentCookies
+	 *            true if non-persistent cookies should be omited
+	 */
+	public void setOmitNonPersistentCookies(boolean omitNonPersistentCookies) {
+		this.omitNonPersistentCookies = omitNonPersistentCookies;
+	}
 
-    @Override
-    public List<Cookie> getCookies() {
-        return new ArrayList<Cookie>(cookies.values());
-    }
+	/**
+	 * Non-standard helper method, to delete cookie
+	 *
+	 * @param cookie
+	 *            cookie to be removed
+	 */
+	public void deleteCookie(Cookie cookie) {
+		String name = cookie.getName();
+		cookies.remove(name);
+		SharedPreferences.Editor prefsWriter = cookiePrefs.edit();
+		prefsWriter.remove(COOKIE_NAME_PREFIX + name);
+		prefsWriter.commit();
+	}
 
-    public Cookie getCookie(String name) {
-        return cookies.get(name);
-    }
+	/**
+	 * Serializes Cookie object into String
+	 *
+	 * @param cookie
+	 *            cookie to be encoded, can be null
+	 * @return cookie encoded as String
+	 */
+	protected String encodeCookie(SerializableCookie cookie) {
+		if (cookie == null)
+			return null;
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		try {
+			ObjectOutputStream outputStream = new ObjectOutputStream(os);
+			outputStream.writeObject(cookie);
+		} catch (Exception e) {
+			return null;
+		}
 
+		return byteArrayToHexString(os.toByteArray());
+	}
 
-    protected String encodeCookie(SerializableCookie cookie) {
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(os);
-            outputStream.writeObject(cookie);
-        } catch (Throwable e) {
-            return null;
-        }
+	/**
+	 * Returns cookie decoded from cookie string
+	 *
+	 * @param cookieString
+	 *            string of cookie as returned from http request
+	 * @return decoded cookie or null if exception occured
+	 */
+	protected Cookie decodeCookie(String cookieString) {
+		byte[] bytes = hexStringToByteArray(cookieString);
+		ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(
+				bytes);
+		Cookie cookie = null;
+		try {
+			ObjectInputStream objectInputStream = new ObjectInputStream(
+					byteArrayInputStream);
+			cookie = ((SerializableCookie) objectInputStream.readObject())
+					.getCookie();
+		} catch (Exception exception) {
+			Log.d(LOG_TAG, "decodeCookie failed", exception);
+		}
 
-        return byteArrayToHexString(os.toByteArray());
-    }
+		return cookie;
+	}
 
-    protected Cookie decodeCookie(String cookieStr) {
-        byte[] bytes = hexStringToByteArray(cookieStr);
-        ByteArrayInputStream is = new ByteArrayInputStream(bytes);
-        Cookie cookie = null;
-        try {
-            ObjectInputStream ois = new ObjectInputStream(is);
-            cookie = ((SerializableCookie) ois.readObject()).getCookie();
-        } catch (Throwable e) {
-            LogUtils.e(e.getMessage(), e);
-        }
+	/**
+	 * Using some super basic byte array &lt;-&gt; hex conversions so we don't
+	 * have to rely on any large Base64 libraries. Can be overridden if you
+	 * like!
+	 *
+	 * @param bytes
+	 *            byte array to be converted
+	 * @return string containing hex values
+	 */
+	protected String byteArrayToHexString(byte[] bytes) {
+		StringBuilder sb = new StringBuilder(bytes.length * 2);
+		for (byte element : bytes) {
+			int v = element & 0xff;
+			if (v < 16) {
+				sb.append('0');
+			}
+			sb.append(Integer.toHexString(v));
+		}
+		return sb.toString().toUpperCase(Locale.US);
+	}
 
-        return cookie;
-    }
+	/**
+	 * Converts hex values from strings to byte arra
+	 *
+	 * @param hexString
+	 *            string of hex-encoded values
+	 * @return decoded byte array
+	 */
+	protected byte[] hexStringToByteArray(String hexString) {
+		int len = hexString.length();
+		byte[] data = new byte[len / 2];
+		for (int i = 0; i < len; i += 2) {
+			data[i / 2] = (byte) ((Character.digit(hexString.charAt(i), 16) << 4) + Character
+					.digit(hexString.charAt(i + 1), 16));
+		}
+		return data;
+	}
 
-    // Using some super basic byte array <-> hex conversions so we don't have
-    // to rely on any large Base64 libraries. Can be overridden if you like!
-    protected String byteArrayToHexString(byte[] b) {
-        StringBuffer sb = new StringBuffer(b.length * 2);
-        for (byte element : b) {
-            int v = element & 0xff;
-            if (v < 16) {
-                sb.append('0');
-            }
-            sb.append(Integer.toHexString(v));
-        }
-        return sb.toString().toUpperCase();
-    }
+	/**
+	 * A wrapper class around {@link Cookie} and/or {@link BasicClientCookie}
+	 * designed for use in {@link PreferencesCookieStore}.
+	 */
+	@SuppressWarnings("deprecation")
+	public class SerializableCookie implements Serializable {
+		private static final long serialVersionUID = 6374381828722046732L;
 
-    protected byte[] hexStringToByteArray(String s) {
-        int len = s.length();
-        byte[] data = new byte[len / 2];
-        for (int i = 0; i < len; i += 2) {
-            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4) + Character.digit(s.charAt(i + 1), 16));
-        }
-        return data;
-    }
+		private transient final Cookie cookie;
+		private transient BasicClientCookie clientCookie;
 
+		public SerializableCookie(Cookie cookie) {
+			this.cookie = cookie;
+		}
 
-    public class SerializableCookie implements Serializable {
-        private static final long serialVersionUID = 6374381828722046732L;
+		public Cookie getCookie() {
+			Cookie bestCookie = cookie;
+			if (clientCookie != null) {
+				bestCookie = clientCookie;
+			}
+			return bestCookie;
+		}
 
-        private transient final Cookie cookie;
-        private transient BasicClientCookie clientCookie;
+		private void writeObject(ObjectOutputStream out) throws IOException {
+			out.writeObject(cookie.getName());
+			out.writeObject(cookie.getValue());
+			out.writeObject(cookie.getComment());
+			out.writeObject(cookie.getDomain());
+			out.writeObject(cookie.getExpiryDate());
+			out.writeObject(cookie.getPath());
+			out.writeInt(cookie.getVersion());
+			out.writeBoolean(cookie.isSecure());
+		}
 
-        public SerializableCookie(Cookie cookie) {
-            this.cookie = cookie;
-        }
+		private void readObject(ObjectInputStream in) throws IOException,
+				ClassNotFoundException {
+			String name = (String) in.readObject();
+			String value = (String) in.readObject();
+			clientCookie = new BasicClientCookie(name, value);
+			clientCookie.setComment((String) in.readObject());
+			clientCookie.setDomain((String) in.readObject());
+			clientCookie.setExpiryDate((Date) in.readObject());
+			clientCookie.setPath((String) in.readObject());
+			clientCookie.setVersion(in.readInt());
+			clientCookie.setSecure(in.readBoolean());
+		}
+	}
 
-        public Cookie getCookie() {
-            Cookie bestCookie = cookie;
-            if (clientCookie != null) {
-                bestCookie = clientCookie;
-            }
-            return bestCookie;
-        }
-
-        private void writeObject(ObjectOutputStream out) throws IOException {
-            out.writeObject(cookie.getName());
-            out.writeObject(cookie.getValue());
-            out.writeObject(cookie.getComment());
-            out.writeObject(cookie.getDomain());
-            out.writeObject(cookie.getExpiryDate());
-            out.writeObject(cookie.getPath());
-            out.writeInt(cookie.getVersion());
-            out.writeBoolean(cookie.isSecure());
-        }
-
-        private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-            String name = (String) in.readObject();
-            String value = (String) in.readObject();
-            clientCookie = new BasicClientCookie(name, value);
-            clientCookie.setComment((String) in.readObject());
-            clientCookie.setDomain((String) in.readObject());
-            clientCookie.setExpiryDate((Date) in.readObject());
-            clientCookie.setPath((String) in.readObject());
-            clientCookie.setVersion(in.readInt());
-            clientCookie.setSecure(in.readBoolean());
-        }
-    }
 }
