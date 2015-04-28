@@ -54,18 +54,18 @@ public class MainFragment extends Fragment {
         list_data.add("DBUtils");
         list_data.add("HttpUtils");
         list_data.add("BitmapUtils");
-        list_data.add("AppTools");
-        list_data.add("AssetTools");
-        list_data.add("DateTools");
-        list_data.add("DensityTools");
-        list_data.add("DeviceTools");
-        list_data.add("IoTools");
-        list_data.add("KeyBoardTools");
-        list_data.add("NetTools");
-        list_data.add("ScreenTools");
-        list_data.add("Sdcardls");
-        list_data.add("SecarityTools");
-        list_data.add("SpTools");
+        list_data.add("AppUtils");
+        list_data.add("AssetUtils");
+        list_data.add("DateUtils");
+        list_data.add("DensityUtils");
+        list_data.add("DeviceUtils");
+        list_data.add("IoUtils");
+        list_data.add("KeyBoardUtils");
+        list_data.add("NetUtils");
+        list_data.add("ScreenUtils");
+        list_data.add("SdcardUtils");
+        list_data.add("SecarityUtils");
+        list_data.add("SpUtils");
 
 
         adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, list_data);
@@ -108,29 +108,56 @@ public class MainFragment extends Fragment {
                         .replace(R.id.container, new BitmapUtilsFragment(context))
                         .commit();
                 break;
-            case "AppTools":
+            case "AppUtils":
+                getFragmentManager().beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                        .addToBackStack(null)
+                        .replace(R.id.container, new AppUtilsFragment(context))
+                        .commit();
                 break;
-            case "AssetTools":
+            case "AssetUtils":
+                getFragmentManager().beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                        .addToBackStack(null)
+                        .replace(R.id.container, new AssetUtilsFragment(context))
+                        .commit();
                 break;
-            case "DateTools":
+            case "DateUtils":
+                getFragmentManager().beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                        .addToBackStack(null)
+                        .replace(R.id.container, new DateUtilsFragment(context))
+                        .commit();
+
                 break;
-            case "DensityTools":
+            case "DensityUtils":
+                getFragmentManager().beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                        .addToBackStack(null)
+                        .replace(R.id.container, new DensityUtilsFragment(context))
+                        .commit();
+
                 break;
-            case "DeviceTools":
+            case "DeviceUtils":
+                getFragmentManager().beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                        .addToBackStack(null)
+                        .replace(R.id.container, new DeviceUtilsFragment(context))
+                        .commit();
                 break;
-            case "IoTools":
+            case "IoUtils":
                 break;
-            case "KeyBoardTools":
+            case "KeyBoardUtils":
                 break;
-            case "NetTools":
+            case "NetUtils":
                 break;
-            case "ScreenTools":
+            case "ScreenUtils":
                 break;
-            case "Sdcardls":
+            case "SdcardUtils":
                 break;
-            case "SecarityTools":
+            case "SecarityUtils":
                 break;
-            case "SpTools":
+            case "SpUtils":
                 break;
 
         }

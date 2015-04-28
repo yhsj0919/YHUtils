@@ -8,6 +8,7 @@ import android.text.format.Formatter;
 
 /**
  * 获取手机信息工具类<br>
+ * 需要"android.permission.READ_PHONE_STATE"权限
  *
  */
 public class DeviceUtils {
@@ -46,7 +47,7 @@ public class DeviceUtils {
 
 	/**
 	 * 得到本机Ip地址
-	 * 
+	 * 需要"android.permission.ACCESS_WIFI_STATE"权限
 	 * @param ctx
 	 * @return
 	 */

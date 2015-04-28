@@ -95,7 +95,7 @@ public class AppUtils {
 	}
 
 	/**
-	 * 获取城市编号
+	 * 获取国家编号
 	 * 
 	 * @return
 	 */
@@ -115,26 +115,24 @@ public class AppUtils {
 	 * @param packageName
 	 */
 	public static void startApkActivity(final Context activity,
-			String packageName) {
+			String packageName) throws Exception {
 		PackageManager pm = activity.getPackageManager();
 		PackageInfo pi;
-		try {
-			pi = pm.getPackageInfo(packageName, 0);
-			Intent intent = new Intent(Intent.ACTION_MAIN, null);
-			intent.addCategory(Intent.CATEGORY_LAUNCHER);
-			intent.setPackage(pi.packageName);
 
-			List<ResolveInfo> apps = pm.queryIntentActivities(intent, 0);
+		pi = pm.getPackageInfo(packageName, 0);
+		Intent intent = new Intent(Intent.ACTION_MAIN, null);
+		intent.addCategory(Intent.CATEGORY_LAUNCHER);
+		intent.setPackage(pi.packageName);
 
-			ResolveInfo ri = apps.iterator().next();
-			if (ri != null) {
-				String className = ri.activityInfo.name;
-				intent.setComponent(new ComponentName(packageName, className));
-				activity.startActivity(intent);
-			}
-		} catch (NameNotFoundException e) {
-			LogUtils.e("startActivity", e);
+		List<ResolveInfo> apps = pm.queryIntentActivities(intent, 0);
+
+		ResolveInfo ri = apps.iterator().next();
+		if (ri != null) {
+			String className = ri.activityInfo.name;
+			intent.setComponent(new ComponentName(packageName, className));
+			activity.startActivity(intent);
 		}
+
 	}
 
 	/**
@@ -190,6 +188,32 @@ public class AppUtils {
 			appInfos.add(appInfo);
 			LogUtils.d("package: " + app.packageName + ", sourceDir: "
 					+ app.sourceDir);
+		}
+
+		return appInfos;
+	}
+
+	/**
+	 * 获取所有可启动app的包名
+	 * 
+	 * @param context
+	 * @return ArrayList<String> 包名
+	 */
+	public static ArrayList<String> getAllCanStartApp(Context context) {
+
+		ArrayList<String> appInfos = new ArrayList<String>();
+
+		PackageManager pm = context.getPackageManager();
+
+		Intent intent = new Intent(Intent.ACTION_MAIN);
+		intent.addCategory(Intent.CATEGORY_LAUNCHER);
+
+		for (ResolveInfo app : pm.queryIntentActivities(intent, 0)) {
+
+			appInfos.add(app.activityInfo.packageName);
+
+			LogUtils.d("name" + app.activityInfo.name + "  package: "
+					+ app.activityInfo.packageName);
 		}
 
 		return appInfos;

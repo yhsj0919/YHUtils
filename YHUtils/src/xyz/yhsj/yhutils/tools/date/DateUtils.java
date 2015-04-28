@@ -18,14 +18,14 @@ public class DateUtils {
 
 	/**
 	 * 格式化12小时制<br>
-	 * 格式：yyyy-MM-dd hh-MM-ss
+	 * 格式：yyyy-MM-dd hh-mm-ss
 	 * 
 	 * @param time
 	 *            时间
 	 * @return
 	 */
 	public static String format12Time(long time) {
-		return format(time, "yyyy-MM-dd hh:MM:ss");
+		return format(time, "yyyy-MM-dd hh:mm:ss");
 	}
 
 	/**
@@ -37,7 +37,7 @@ public class DateUtils {
 	 * @return
 	 */
 	public static String format24Time(long time) {
-		return format(time, "yyyy-MM-dd HH:MM:ss");
+		return format(time, "yyyy-MM-dd HH:mm:ss");
 	}
 
 	/**
@@ -47,11 +47,11 @@ public class DateUtils {
 	 */
 	public static String getThisTime() {
 		Calendar c = Calendar.getInstance();
-		return format(c.getTimeInMillis(), "yyyy-MM-dd HH:MM:ss");
+		return format(c.getTimeInMillis(), "yyyy-MM-dd HH:mm:ss");
 	}
 
 	/**
-	 * 得到某个时间点 正数为某个时间之后,负数为某个时间之前
+	 * 得到某个时间点 正数为当前时间之后,负数为当前时间之前
 	 * 
 	 * @param year
 	 * @param month
@@ -74,7 +74,7 @@ public class DateUtils {
 		c.add(Calendar.SECOND, second);
 
 		if (format == null) {
-			return format(c.getTimeInMillis(), "yyyy-MM-dd HH:MM:ss");
+			return format(c.getTimeInMillis(), "yyyy-MM-dd HH:mm:ss");
 		}
 		return format(c.getTimeInMillis(), format);
 	}
@@ -91,38 +91,5 @@ public class DateUtils {
 	public static String format(long time, String pattern) {
 		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 		return sdf.format(new Date(time));
-	}
-
-	/**
-	 * 获取当前天
-	 * 
-	 * @return 天
-	 */
-	@SuppressWarnings("static-access")
-	public static int getCurrentDay() {
-		Calendar calendar = Calendar.getInstance();
-		return calendar.DAY_OF_MONTH;
-	}
-
-	/**
-	 * 获取当前月
-	 * 
-	 * @return 月
-	 */
-	@SuppressWarnings("static-access")
-	public static int getCurrentMonth() {
-		Calendar calendar = Calendar.getInstance();
-		return calendar.MONTH;
-	}
-
-	/**
-	 * 获取当前年
-	 * 
-	 * @return 年
-	 */
-	@SuppressWarnings("static-access")
-	public static int getCurrentYear() {
-		Calendar calendar = Calendar.getInstance();
-		return calendar.YEAR;
 	}
 }
