@@ -19,7 +19,7 @@ import java.util.ArrayList;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainFragment extends Fragment {
+public class MenuListFragment extends Fragment {
 
     private Context context;
     @ViewInject(R.id.list)
@@ -30,7 +30,7 @@ public class MainFragment extends Fragment {
     private ArrayAdapter<String> adapter;
 
 
-    public MainFragment(Context context) {
+    public MenuListFragment(Context context) {
 
         this.context = context;
     }
@@ -146,6 +146,11 @@ public class MainFragment extends Fragment {
                         .commit();
                 break;
             case "IoUtils":
+                getFragmentManager().beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                        .addToBackStack(null)
+                        .replace(R.id.container, new IOUtilsFragment(context))
+                        .commit();
                 break;
             case "KeyBoardUtils":
                 break;
