@@ -2,40 +2,21 @@ package xyz.yhsj.yhutils.tools.net;
 
 import xyz.yhsj.yhutils.util.LogUtils;
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.IBinder;
 import android.telephony.TelephonyManager;
 
 /**
  * 网络 工具类<Br>
- * 内部已经封装了打印功能,只需要把DEBUG参数改为true即可<br>
- * 如果需要更换tag可以直接更改,默认为KEZHUANG
+ * 需要android.permission.ACCESS_NETWORK_STATE 权限
  * 
  * @author KEZHUANG
  *
  */
 public class NetWorkUtils {
-	/**
-	 * 接受网络状态的广播Action
-	 */
-	public static final String NET_BROADCAST_ACTION = "com.network.state.action";
-
-	public static final String NET_STATE_NAME = "network_state";
-
-	/**
-	 * 实时更新网络状态<br>
-	 * -1为网络无连接<br>
-	 * 1为WIFI<br>
-	 * 2为移动网络<br>
-	 */
-	public static int CURRENT_NETWORK_STATE = -1;
 
 	/**
 	 * 判断网络是否连接
@@ -48,6 +29,7 @@ public class NetWorkUtils {
 
 		ConnectivityManager connectivityManager = (ConnectivityManager) context
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
+
 		NetworkInfo network = connectivityManager.getActiveNetworkInfo();
 		if (network != null) {
 			bisConnFlag = connectivityManager.getActiveNetworkInfo()
@@ -60,14 +42,14 @@ public class NetWorkUtils {
 	 * 判断是否是wifi连接
 	 */
 	public static boolean isWifi(Context context) {
-		ConnectivityManager cm = (ConnectivityManager) context
+		ConnectivityManager connectivityManager = (ConnectivityManager) context
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-		if (cm == null) {
+		if (!isConnected(context)) {
 			LogUtils.i("当前网络----->不可用");
 			return false;
 		}
-		boolean isWifi = cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
+		boolean isWifi = connectivityManager.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
 		if (isWifi)
 			LogUtils.i("当前网络----->WIFI环境");
 		else
@@ -95,64 +77,6 @@ public class NetWorkUtils {
 		}
 		activity.startActivity(intent);
 	}
-
-	/**
-	 * 开启服务,实时监听网络变化 需要自己在清单文件中配置服务<br>
-	 * 然后把对应的Action传入<br>
-	 * 服务类:android.develop.utils.net.NetService
-	 */
-	public static void startNetService(Context context, String action) {
-		// 注册广播
-		IntentFilter intentFilter = new IntentFilter();
-		intentFilter.addAction(NET_BROADCAST_ACTION);
-		context.registerReceiver(mReceiver, intentFilter);
-		// 开启服务
-		Intent intent = new Intent();
-		LogUtils.d("开启网络监听服务");
-		intent.setAction(action);
-		context.bindService(intent, new ServiceConnection() {
-
-			@Override
-			public void onServiceDisconnected(ComponentName name) {
-
-			}
-
-			@Override
-			public void onServiceConnected(ComponentName name, IBinder service) {
-
-			}
-		}, Context.BIND_AUTO_CREATE);
-	}
-
-	// 接受服务上发过来的广播
-	private static BroadcastReceiver mReceiver = new BroadcastReceiver() {
-
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			if (intent != null) {
-				CURRENT_NETWORK_STATE = Integer.parseInt((String) intent
-						.getExtras().get(NET_STATE_NAME));
-				switch (CURRENT_NETWORK_STATE) {
-				case -1:
-					LogUtils.d("网络更改为 无网络  CURRENT_NETWORK_STATE ="
-							+ CURRENT_NETWORK_STATE);
-					break;
-				case 1:
-					LogUtils.d("网络更改为 WIFI网络  CURRENT_NETWORK_STATE="
-							+ CURRENT_NETWORK_STATE);
-					break;
-				case 2:
-					LogUtils.d("网络更改为 移动网络  CURRENT_NETWORK_STATE ="
-							+ CURRENT_NETWORK_STATE);
-					break;
-
-				default:
-					break;
-				}
-			}
-		}
-
-	};
 
 	/**
 	 * 获取网络类型名称

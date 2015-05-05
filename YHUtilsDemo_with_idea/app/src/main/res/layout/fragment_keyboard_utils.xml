@@ -1,0 +1,15 @@
+<LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+              android:layout_width = "match_parent"
+              android:layout_height = "match_parent"
+              android:orientation = "vertical"
+              android:id = "@+id/screen">
+
+
+    <EditText
+            android:id = "@+id/ed1"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:text = "hello_blank_fragment1"/>
+
+
+</LinearLayout>

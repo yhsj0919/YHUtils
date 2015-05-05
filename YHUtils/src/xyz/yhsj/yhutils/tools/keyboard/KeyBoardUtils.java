@@ -12,7 +12,7 @@ public class KeyBoardUtils {
 	/**
 	 * 打开软键盘
 	 * 
-	 * @param mEditText输入框
+	 * @param mEditText输入框(好像关系不大)
 	 * @param mContext上下文
 	 */
 	public static void openKeybord(EditText mEditText, Context mContext) {
@@ -26,7 +26,7 @@ public class KeyBoardUtils {
 	/**
 	 * 关闭软键盘
 	 * 
-	 * @param mEditText输入框
+	 * @param mEditText输入框(好像关系不大)
 	 * @param mContext上下文
 	 */
 	public static void closeKeybord(EditText mEditText, Context mContext) {

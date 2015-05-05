@@ -33,7 +33,12 @@ public class NotificationUtils {
 
 		Intent mIntent = new Intent(context, activity);
 		mIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		mIntent.putExtras(extras);
+		
+		if (extras!=null) {
+			mIntent.putExtras(extras);
+		}
+		
+		
 
 		int requestCode = (int) System.currentTimeMillis();
 
@@ -61,7 +66,7 @@ public class NotificationUtils {
 	 * @param info
 	 */
 	@SuppressWarnings("deprecation")
-	public void showNotification(Activity context, String title, String info,
+	public static void showNotification(Activity context, String title, String info,
 			int SmallIconId) {
 		NotificationManager barmanager = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);

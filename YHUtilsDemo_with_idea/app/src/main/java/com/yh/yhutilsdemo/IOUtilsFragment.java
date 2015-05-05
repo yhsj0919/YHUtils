@@ -41,16 +41,22 @@ public class IOUtilsFragment extends Fragment {
         return rootView;
     }
 
-    @OnClick({R.id.btn_save, R.id.btn_get})
+    @OnClick({R.id.btn_save, R.id.btn_get, R.id.btn_append})
     public void btnListener(View view) {
         switch (view.getId()) {
             case R.id.btn_get:
 
                 info.setText(IOUtils.read(SDCardUtils.getSDCardPath() + "test.txt"));
 
+                LogUtils.i(IOUtils.read(SDCardUtils.getSDCardPath() + "test.txt"));
                 break;
+            case R.id.btn_append:
+
+                IOUtils.write(SDCardUtils.getSDCardPath() + "test.txt", info.getText().toString() + "\n", true);
+                break;
+
             case R.id.btn_save:
-                IOUtils.write(SDCardUtils.getSDCardPath() + "test.txt", info.getText().toString());
+                IOUtils.write(SDCardUtils.getSDCardPath() + "test.txt", info.getText().toString() + "\n", false);
                 break;
 
         }

@@ -3,28 +3,20 @@
               android:layout_height = "match_parent"
               android:orientation = "vertical">
 
-
-    <EditText
-            android:id = "@+id/info1"
-            android:layout_width = "match_parent"
-            android:layout_height = "wrap_content"/>
-
     <Button
-            android:id = "@+id/btn_save"
+            android:id="@+id/show1"
             android:layout_width = "match_parent"
             android:layout_height = "wrap_content"
-            android:text = "保存"/>
+            android:text = "显示不重复的通知"/>
     <Button
-            android:id = "@+id/btn_append"
+            android:id="@+id/show2"
             android:layout_width = "match_parent"
             android:layout_height = "wrap_content"
-            android:text = "追加"/>
-
+            android:text = "显示不清除的通知"/>
     <Button
-            android:id = "@+id/btn_get"
+            android:id="@+id/clear"
             android:layout_width = "match_parent"
             android:layout_height = "wrap_content"
-            android:text = "读取"/>
-
+            android:text = "清除所有通知"/>
 
 </LinearLayout>

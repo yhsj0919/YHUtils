@@ -24,13 +24,16 @@ public class IOUtils {
 	 *            例如：../a/a.txt
 	 * @param content
 	 *            写入内容
+	 * @param append
+	 *            是否追加
 	 */
-	public static void write(String filePath, String content) {
+	public static void write(String filePath, String content, boolean append) {
 		BufferedWriter bufw = null;
 		try {
 			bufw = new BufferedWriter(new OutputStreamWriter(
-					new FileOutputStream(filePath)));
+					new FileOutputStream(filePath, append)));
 			bufw.write(content);
+
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		} finally {

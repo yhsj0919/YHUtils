@@ -59,9 +59,11 @@ public class MenuListFragment extends Fragment {
         list_data.add("DateUtils");
         list_data.add("DensityUtils");
         list_data.add("DeviceUtils");
+        list_data.add("ImageUtils");
         list_data.add("IoUtils");
         list_data.add("KeyBoardUtils");
-        list_data.add("NetUtils");
+        list_data.add("NotificationUtils");
+        list_data.add("NetWorkUtils");
         list_data.add("ScreenUtils");
         list_data.add("SdcardUtils");
         list_data.add("SecarityUtils");
@@ -145,6 +147,15 @@ public class MenuListFragment extends Fragment {
                         .replace(R.id.container, new DeviceUtilsFragment(context))
                         .commit();
                 break;
+
+            case "ImageUtils":
+
+                getFragmentManager().beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                        .addToBackStack(null)
+                        .replace(R.id.container, new ImageUtilFragment(context))
+                        .commit();
+                break;
             case "IoUtils":
                 getFragmentManager().beginTransaction()
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
@@ -153,8 +164,25 @@ public class MenuListFragment extends Fragment {
                         .commit();
                 break;
             case "KeyBoardUtils":
+                getFragmentManager().beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                        .addToBackStack(null)
+                        .replace(R.id.container, new KeyBoardUtilsFragment(context))
+                        .commit();
                 break;
-            case "NetUtils":
+            case "NetWorkUtils":
+                getFragmentManager().beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                        .addToBackStack(null)
+                        .replace(R.id.container, new NetWorkUtilsFragment(context))
+                        .commit();
+                break;
+            case "NotificationUtils":
+                getFragmentManager().beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                        .addToBackStack(null)
+                        .replace(R.id.container, new NotificationUtilsFragment(context))
+                        .commit();
                 break;
             case "ScreenUtils":
                 break;
