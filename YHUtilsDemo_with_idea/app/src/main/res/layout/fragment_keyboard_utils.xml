@@ -9,7 +9,7 @@
             android:id = "@+id/ed1"
             android:layout_width = "match_parent"
             android:layout_height = "wrap_content"
-            android:text = "hello_blank_fragment1"/>
+            android:text = "点击空白处关闭软键盘"/>
 
 
 </LinearLayout>

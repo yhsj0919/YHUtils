@@ -9,6 +9,12 @@ import android.graphics.drawable.TransitionDrawable;
 import android.widget.ImageView;
 
 public class ImageUtils {
+	
+	/**渐变显示图片
+	 * @param context
+	 * @param imageView
+	 * @param bitmap
+	 */
 	@SuppressWarnings("deprecation")
 	public static void setImageBitmap(Context context, ImageView imageView,
 			Bitmap bitmap) {
@@ -17,7 +23,7 @@ public class ImageUtils {
 				new ColorDrawable(android.R.color.transparent),
 				new BitmapDrawable(context.getResources(), bitmap) });
 		// noinspection deprecation
-		imageView.setBackgroundDrawable(imageView.getDrawable());
+		//imageView.setBackgroundDrawable(imageView.getDrawable());
 		imageView.setImageDrawable(td);
 		td.startTransition(200);
 	}

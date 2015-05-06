@@ -185,6 +185,11 @@ public class MenuListFragment extends Fragment {
                         .commit();
                 break;
             case "ScreenUtils":
+                getFragmentManager().beginTransaction()
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                        .addToBackStack(null)
+                        .replace(R.id.container, new ScreenUtilsFragment(context))
+                        .commit();
                 break;
             case "SdcardUtils":
                 break;

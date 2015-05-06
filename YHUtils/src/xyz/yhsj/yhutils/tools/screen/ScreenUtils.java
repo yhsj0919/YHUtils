@@ -17,7 +17,7 @@ import android.view.WindowManager;
 public class ScreenUtils {
 
 	/**
-	 * 获得屏幕高度
+	 * 获得屏幕宽度
 	 * 
 	 */
 	public static int getScreenWidth(Context context) {
@@ -31,7 +31,7 @@ public class ScreenUtils {
 	}
 
 	/**
-	 * 获得屏幕宽度
+	 * 获得屏幕高度
 	 */
 	public static int getScreenHeight(Context context) {
 		WindowManager wm = (WindowManager) context

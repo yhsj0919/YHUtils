@@ -43,7 +43,7 @@ public class KeyBoardUtilsFragment extends Fragment {
     public void btnListener(View v) {
         if (v.getId() == R.id.screen) {
 
-            KeyBoardUtils.openKeybord(ed1, context);
+            KeyBoardUtils.closeKeybord(ed1, context);
         }
     }
 
