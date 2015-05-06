@@ -3,8 +3,10 @@ package xyz.yhsj.yhutils.tools.sdcard;
 import java.io.File;
 
 import xyz.yhsj.yhutils.util.LogUtils;
+import android.content.Context;
 import android.os.Environment;
 import android.os.StatFs;
+import android.text.format.Formatter;
 
 /**
  * 内存卡 工具类<br>
@@ -41,22 +43,95 @@ public class SDCardUtils {
 	}
 
 	/**
-	 * 获取SD卡的剩余容量 单位byte
+	 * 获取外部存储设备的总空间大小
 	 */
-	public static long getSDCardAllSize() {
+	public static String getSDCardTotalSize(Context context) {
 		if (isSDCardEnable()) {
-			StatFs stat = new StatFs(getSDCardPath());
-			// 获取空闲的数据块的数量
-			@SuppressWarnings("deprecation")
-			long availableBlocks = (long) stat.getAvailableBlocks() - 4;
-			// 获取单个数据块的大小（byte）
-			@SuppressWarnings("deprecation")
-			long freeBlocks = stat.getAvailableBlocks();
-			long result = freeBlocks * availableBlocks;
-			LogUtils.i("当前内存卡的容量：" + result);
-			return result;
+			// 得到一个外部存储设备的目录/通过getPath得到路径
+			File path = Environment.getExternalStorageDirectory();
+			// 文件系统的帮助类，传入一个路径可以得到路径的信息
+			StatFs stat = new StatFs(path.getPath());
+			// 得到该存储空间每一块存储空间的大小
+			long blockSize = stat.getBlockSize();
+			// 得到空间总个数
+			long totalBlocks = stat.getBlockCount();
+
+			// 得到总空间大小
+			long totalSize = totalBlocks * blockSize;
+
+			String totalStr = Formatter.formatFileSize(context, totalSize);
+
+			return totalStr;
 		}
-		return 0;
+		return "0";
+	}
+
+	/**
+	 * 获取外部存储设备的剩余空间大小
+	 */
+	public static String getSDCardAvailSize(Context context) {
+		if (isSDCardEnable()) {
+			// 得到一个外部存储设备的目录/通过getPath得到路径
+			File path = Environment.getExternalStorageDirectory();
+			// 文件系统的帮助类，传入一个路径可以得到路径的信息
+			StatFs stat = new StatFs(path.getPath());
+			// 得到该存储空间每一块存储空间的大小
+			long blockSize = stat.getBlockSize();
+			// 得到可用的空间个数
+			long availableBlocks = stat.getAvailableBlocks();
+			// 得到可用空间大小
+			long availSize = availableBlocks * blockSize;
+			String availStr = Formatter.formatFileSize(context, availSize);
+			return availStr;
+		}
+		return "0";
+	}
+
+	/**
+	 * 获取内部存储设备的总空间大小
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public String getRomSpaceTotalSize(Context context) {
+		// 得到一个内部存储设备的目录/通过getPath得到路径
+		File path = Environment.getDataDirectory();
+		// 文件系统的帮助类，传入一个路径可以得到路径的信息
+		StatFs stat = new StatFs(path.getPath());
+		// 得到该存储空间每一块存储空间的大小
+		long blockSize = stat.getBlockSize();
+		// 得到空间总个数
+		long totalBlocks = stat.getBlockCount();
+		// 得到总空间大小
+		long totalSize = totalBlocks * blockSize;
+
+		String totalStr = Formatter.formatFileSize(context, totalSize);
+
+		return totalStr;
+
+	}
+
+	/**
+	 * 获取内部存储设备的剩余空间大小
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public String getRomSpaceAvailSize(Context context) {
+		// 得到一个内部存储设备的目录/通过getPath得到路径
+		File path = Environment.getDataDirectory();
+		// 文件系统的帮助类，传入一个路径可以得到路径的信息
+		StatFs stat = new StatFs(path.getPath());
+		// 得到该存储空间每一块存储空间的大小
+		long blockSize = stat.getBlockSize();
+		// 得到可用的空间个数
+		long availableBlocks = stat.getAvailableBlocks();
+		// 得到可用空间大小
+		long availSize = availableBlocks * blockSize;
+
+		String availStr = Formatter.formatFileSize(context, availSize);
+		return availStr;
+
 	}
 
 	/**
@@ -76,7 +151,7 @@ public class SDCardUtils {
 	 * @return
 	 */
 	@SuppressWarnings({ "deprecation", "unused" })
-	public boolean isSDCardSizeOverflow() {
+	public static boolean isSDCardSizeOverflow() {
 		boolean result = false;
 		// 取得SDCard当前的状态
 		String sDcString = android.os.Environment.getExternalStorageState();
