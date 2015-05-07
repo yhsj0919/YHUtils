@@ -93,7 +93,7 @@ public class SDCardUtils {
 	 * @param context
 	 * @return
 	 */
-	public String getRomSpaceTotalSize(Context context) {
+	public static String getRomSpaceTotalSize(Context context) {
 		// 得到一个内部存储设备的目录/通过getPath得到路径
 		File path = Environment.getDataDirectory();
 		// 文件系统的帮助类，传入一个路径可以得到路径的信息
@@ -117,7 +117,7 @@ public class SDCardUtils {
 	 * @param context
 	 * @return
 	 */
-	public String getRomSpaceAvailSize(Context context) {
+	public static String getRomSpaceAvailSize(Context context) {
 		// 得到一个内部存储设备的目录/通过getPath得到路径
 		File path = Environment.getDataDirectory();
 		// 文件系统的帮助类，传入一个路径可以得到路径的信息

@@ -24,16 +24,21 @@
             android:id="@+id/btn3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="获取SD卡的剩余容量 单位byte"/>
-
+            android:text="获取SD卡的剩余容量/总容量"/>
     <Button
             android:id="@+id/btn4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="获取系统的剩余空间/总空间"/>
+
+    <Button
+            android:id="@+id/btn5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="获取系统存储路径"/>
 
     <Button
-            android:id="@+id/btn5"
+            android:id="@+id/btn6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="判断SDCard是否已满"/>
