@@ -20,7 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 
 /**
- * 表单工具类（根据Tag获取控件：键-值，返回json格式）
+ * 表单工具类,获得数据或者设置数据
  * 
  * @author 修改 by 永恒瞬间（power by zftlive）
  * @version 1.0
@@ -29,7 +29,7 @@ import android.widget.TableLayout;
 public class FormUtils {
 
 	/**
-	 * 获取表单控件数据
+	 * 获取表单的数据（根据Tag获取控件：键-值，返回json格式）
 	 * 
 	 * @param root
 	 *            当前表单容器
@@ -37,6 +37,7 @@ public class FormUtils {
 	 *            当前表单数据
 	 * @return 表单数据（CheckBox多选选项JSONArray拼接）
 	 */
+
 	@SuppressLint("NewApi")
 	public static JSONObject getFormInfo(ViewGroup root, JSONObject data)
 			throws Exception {
@@ -65,20 +66,33 @@ public class FormUtils {
 				 */
 				else if (view instanceof EditText) {
 
-					data.put((String) view.getTag(), ((EditText) view)
-							.getText().toString());
+					if (view.getTag() != null) {
+						data.put((String) view.getTag(), ((EditText) view)
+								.getText().toString());
+					}
 
 				} else if (view instanceof AutoCompleteTextView) {
-					data.put((String) view.getTag(),
-							((AutoCompleteTextView) view).getText().toString());
+
+					if (view.getTag() != null) {
+						data.put((String) view.getTag(),
+								((AutoCompleteTextView) view).getText()
+										.toString());
+					}
 
 				} else if (view instanceof MultiAutoCompleteTextView) {
-					data.put((String) view.getTag(),
-							((MultiAutoCompleteTextView) view).getText()
-									.toString());
+
+					if (view.getTag() != null) {
+						data.put((String) view.getTag(),
+								((MultiAutoCompleteTextView) view).getText()
+										.toString());
+					}
+
 				} else if (view instanceof ExtractEditText) {
-					data.put((String) view.getTag(), ((ExtractEditText) view)
-							.getText().toString());
+
+					if (view.getTag() != null) {
+						data.put((String) view.getTag(),
+								((ExtractEditText) view).getText().toString());
+					}
 				}
 
 				/**
@@ -86,9 +100,12 @@ public class FormUtils {
 				 */
 				else if (view.getClass().getName()
 						.equals(RadioButton.class.getName())) {
-					if (((RadioButton) view).isChecked()) {
-						data.put((String) view.getTag(), ((RadioButton) view)
-								.getText().toString());
+
+					if (view.getTag() != null) {
+						if (((RadioButton) view).isChecked()) {
+							data.put((String) view.getTag(),
+									((RadioButton) view).getText().toString());
+						}
 					}
 				}
 
@@ -98,38 +115,53 @@ public class FormUtils {
 				else if (view.getClass().getName()
 						.equals(CheckBox.class.getName())) {
 
-					if (((CheckBox) view).isChecked()) {
+					if (view.getTag() != null) {
 
-						if (!data.isNull((String) view.getTag())) {
+						if (((CheckBox) view).isChecked()) {
 
-							JSONArray value = data.getJSONArray(view.getTag()
-									.toString());
+							if (!data.isNull((String) view.getTag())) {
 
-							value.put(((CheckBox) view).getText().toString());
+								JSONArray value = data.getJSONArray(view
+										.getTag().toString());
+								value.put(((CheckBox) view).getText()
+										.toString());
+								data.put((String) view.getTag(), value);
+							} else {
+								JSONArray arr = new JSONArray();
+								arr.put(((CheckBox) view).getText().toString());
+								data.put((String) view.getTag(), arr);
 
-							data.put((String) view.getTag(), value);
-						} else {
-							JSONArray arr = new JSONArray();
-							arr.put(((CheckBox) view).getText().toString());
-
-							data.put((String) view.getTag(), arr);
-
+							}
 						}
 					}
+
 				}
 				/**
 				 * Spinner.class
 				 */
 				else if (view.getClass().getName()
 						.equals(android.widget.Spinner.class.getName())) {
-					data.put((String) view.getTag(),
-							((android.widget.Spinner) view).getSelectedItem()
-									.toString());
+
+					if (view.getTag() != null) {
+						data.put((String) view.getTag(),
+								((android.widget.Spinner) view)
+										.getSelectedItem().toString());
+					}
 				}
 			}
 		}
 
 		return data;
+	}
+
+	/**
+	 * 设置表单的数据
+	 * 
+	 * @param root
+	 * @param data
+	 */
+	public static void setFormInfo(ViewGroup root, JSONObject data) {
+
 	}
 
 }
