@@ -2,12 +2,15 @@ package xyz.yhsj.yhutils.tools.io;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+
+import android.content.Context;
 
 /**
  * IO流 工具类<br>
@@ -110,5 +113,52 @@ public class IOUtils {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * 快速读取程序应用包下的文件内容
+	 * 
+	 * @param context
+	 *            上下文
+	 * @param filename
+	 *            文件名称
+	 * @return 文件内容
+	 * @throws IOException
+	 */
+	public static String read(Context context, String filename)
+			throws IOException {
+		FileInputStream inStream = context.openFileInput(filename);
+		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+		byte[] buffer = new byte[1024];
+		int len = 0;
+		while ((len = inStream.read(buffer)) != -1) {
+			outStream.write(buffer, 0, len);
+		}
+		byte[] data = outStream.toByteArray();
+		return new String(data);
+	}
+
+	/**
+	 * 读取raw目录的文件内容
+	 * 
+	 * @param context
+	 *            内容上下文
+	 * @param rawFileId
+	 *            raw文件名id
+	 * @return
+	 */
+	public static String readRawValue(Context context, int rawFileId) {
+		String result = "";
+		try {
+			InputStream is = context.getResources().openRawResource(rawFileId);
+			int len = is.available();
+			byte[] buffer = new byte[len];
+			is.read(buffer);
+			result = new String(buffer, "UTF-8");
+			is.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 }

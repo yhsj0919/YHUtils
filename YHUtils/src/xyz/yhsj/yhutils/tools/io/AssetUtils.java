@@ -1,4 +1,4 @@
-package xyz.yhsj.yhutils.tools.asset;
+package xyz.yhsj.yhutils.tools.io;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,7 +34,9 @@ public class AssetUtils {
 		return is;
 	}
 
-	/** 从assets 文件夹中读取文本数据 */
+	/**
+	 * 从assets 文件夹中读取文本数据
+	 */
 	public static String getTextFromAssets(final Context context,
 			String fileName) {
 		String result = "";
@@ -54,7 +56,9 @@ public class AssetUtils {
 		return result;
 	}
 
-	/** 从assets 文件夹中读取图片 */
+	/**
+	 * 从assets 文件夹中读取图片
+	 */
 	public static Drawable loadImageFromAsserts(final Context ctx,
 			String fileName) {
 		try {

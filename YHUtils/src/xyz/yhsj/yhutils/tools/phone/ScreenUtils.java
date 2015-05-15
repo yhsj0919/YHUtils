@@ -1,4 +1,4 @@
-package xyz.yhsj.yhutils.tools.screen;
+package xyz.yhsj.yhutils.tools.phone;
 
 import xyz.yhsj.yhutils.util.LogUtils;
 import android.app.Activity;

@@ -33,6 +33,15 @@ public final class StringUtils {
 		return true;
 	}
 
+	/**
+	 * 连接数组
+	 * 
+	 * @param array
+	 *            数组
+	 * @param sep
+	 *            分隔符
+	 * @return
+	 */
 	public static String join(String[] array, String sep) {
 		if (array == null) {
 			return null;

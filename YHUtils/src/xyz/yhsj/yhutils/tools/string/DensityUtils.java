@@ -1,4 +1,4 @@
-package xyz.yhsj.yhutils.tools.density;
+package xyz.yhsj.yhutils.tools.string;
 
 import xyz.yhsj.yhutils.util.LogUtils;
 import android.content.Context;

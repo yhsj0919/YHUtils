@@ -154,14 +154,6 @@ public class FormUtils {
 		return data;
 	}
 
-	/**
-	 * 设置表单的数据
-	 * 
-	 * @param root
-	 * @param data
-	 */
-	public static void setFormInfo(ViewGroup root, JSONObject data) {
-
-	}
+	
 
 }
