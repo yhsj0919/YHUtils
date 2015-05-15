@@ -115,7 +115,7 @@ public class DateUtils {
 	 * 
 	 * @return
 	 */
-	public static String gainCurrentDate(String formater) {
+	public static String getThisTime(String formater) {
 		return format(getCurrentTime(), formater);
 	}
 

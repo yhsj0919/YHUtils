@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import xyz.yhsj.yhutils.ViewUtils;
-import xyz.yhsj.yhutils.tools.asset.AssetUtils;
+import xyz.yhsj.yhutils.tools.io.AssetUtils;
 import xyz.yhsj.yhutils.view.annotation.ViewInject;
 
 

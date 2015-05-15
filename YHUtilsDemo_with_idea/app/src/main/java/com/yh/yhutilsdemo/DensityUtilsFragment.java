@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import xyz.yhsj.yhutils.ViewUtils;
-import xyz.yhsj.yhutils.tools.density.DensityUtils;
+import xyz.yhsj.yhutils.tools.string.DensityUtils;
 import xyz.yhsj.yhutils.view.annotation.ViewInject;
 
 

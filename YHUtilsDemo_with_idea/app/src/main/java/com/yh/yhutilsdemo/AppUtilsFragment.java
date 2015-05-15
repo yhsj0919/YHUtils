@@ -9,13 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import xyz.yhsj.yhutils.ViewUtils;
-import xyz.yhsj.yhutils.tools.app.AppUtils;
+import xyz.yhsj.yhutils.tools.phone.AppUtils;
 import xyz.yhsj.yhutils.util.LogUtils;
 import xyz.yhsj.yhutils.view.annotation.ViewInject;
 import xyz.yhsj.yhutils.view.annotation.event.OnClick;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 /**
@@ -95,11 +94,6 @@ public class AppUtilsFragment extends Fragment {
 
                 }
                 info.setText(sb1);
-
-
-
-
-
 
 
                 break;

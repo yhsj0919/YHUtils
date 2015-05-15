@@ -13,7 +13,7 @@ import xyz.yhsj.yhutils.DbUtils;
 import xyz.yhsj.yhutils.ViewUtils;
 import xyz.yhsj.yhutils.db.sqlite.Selector;
 import xyz.yhsj.yhutils.exception.DbException;
-import xyz.yhsj.yhutils.tools.date.DateUtils;
+import xyz.yhsj.yhutils.tools.string.DateUtils;
 import xyz.yhsj.yhutils.view.annotation.ViewInject;
 import xyz.yhsj.yhutils.view.annotation.event.OnClick;
 
@@ -57,7 +57,7 @@ public class DBUtilsFragment extends Fragment {
                 text.setText("保存");
                 try {
 
-                    dbUtils.save(new MyModel("名称1", DateUtils.getThisTime()));
+                    dbUtils.save(new MyModel("名称1", DateUtils.getThisTime(DateUtils.DF_YYYY_MM_DD_HH_MM_SS)));
 
                 } catch (DbException e) {
                     e.printStackTrace();

@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import xyz.yhsj.yhutils.ViewUtils;
-import xyz.yhsj.yhutils.tools.device.DeviceUtils;
+import xyz.yhsj.yhutils.tools.phone.DeviceUtils;
 import xyz.yhsj.yhutils.view.annotation.ViewInject;
 
 

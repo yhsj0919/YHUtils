@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import xyz.yhsj.yhutils.ViewUtils;
-import xyz.yhsj.yhutils.tools.image.ImageUtils;
+import xyz.yhsj.yhutils.tools.io.ImageUtils;
 import xyz.yhsj.yhutils.view.annotation.ViewInject;
 import xyz.yhsj.yhutils.view.annotation.event.OnClick;
 

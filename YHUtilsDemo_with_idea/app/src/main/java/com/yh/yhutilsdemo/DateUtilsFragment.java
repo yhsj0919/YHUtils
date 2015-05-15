@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import xyz.yhsj.yhutils.ViewUtils;
-import xyz.yhsj.yhutils.tools.date.DateUtils;
+import xyz.yhsj.yhutils.tools.string.DateUtils;
 import xyz.yhsj.yhutils.view.annotation.ViewInject;
 
 
@@ -48,7 +48,7 @@ public class DateUtilsFragment extends Fragment {
 
 
         info1.setText(DateUtils.getCurrentTime() + "");
-        info2.setText(DateUtils.getThisTime());
+        info2.setText(DateUtils.getThisTime(DateUtils.DF_YYYY_MM_DD_HH_MM_SS));
         info3.setText(DateUtils.getTimePoint(3, 2, 4, 0, 0, 0, null));
         info4.setText(DateUtils.format12Time(DateUtils.getCurrentTime()));
         info5.setText(DateUtils.format(DateUtils.getCurrentTime(),"dd"));

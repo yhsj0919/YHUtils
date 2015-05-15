@@ -4,14 +4,12 @@ package com.yh.yhutilsdemo;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import xyz.yhsj.yhutils.ViewUtils;
-import xyz.yhsj.yhutils.tools.sdcard.SDCardUtils;
-import xyz.yhsj.yhutils.util.LogUtils;
+import xyz.yhsj.yhutils.tools.io.SDCardUtils;
 import xyz.yhsj.yhutils.view.annotation.ViewInject;
 import xyz.yhsj.yhutils.view.annotation.event.OnClick;
 
@@ -65,7 +63,6 @@ public class SDCardUtilsFragment extends Fragment {
 
 
     }
-
 
 
 }

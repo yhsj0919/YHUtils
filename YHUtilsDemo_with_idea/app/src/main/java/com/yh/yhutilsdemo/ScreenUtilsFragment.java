@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import xyz.yhsj.yhutils.ViewUtils;
-import xyz.yhsj.yhutils.tools.image.ImageUtils;
-import xyz.yhsj.yhutils.tools.screen.ScreenUtils;
+import xyz.yhsj.yhutils.tools.io.ImageUtils;
+import xyz.yhsj.yhutils.tools.phone.ScreenUtils;
 import xyz.yhsj.yhutils.util.LogUtils;
 import xyz.yhsj.yhutils.view.annotation.ViewInject;
 import xyz.yhsj.yhutils.view.annotation.event.OnClick;
@@ -59,7 +59,7 @@ public class ScreenUtilsFragment extends Fragment {
                 info.setText(ScreenUtils.getStatusHeight(context) + "");
                 break;
             case R.id.snapShotWithStatusBar:
-                ImageUtils.setImageBitmap(context,img,ScreenUtils.snapShotWithStatusBar(getActivity()));
+                ImageUtils.setImageBitmap(context, img, ScreenUtils.snapShotWithStatusBar(getActivity()));
                 break;
             case R.id.snapShotWithoutStatusBar:
                 ImageUtils.setImageBitmap(context,img,ScreenUtils.snapShotWithoutStatusBar(getActivity()));
