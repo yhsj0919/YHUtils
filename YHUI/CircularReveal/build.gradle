@@ -6,13 +6,10 @@ buildscript {
         classpath 'com.android.tools.build:gradle:1.1.1'
     }
 }
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 repositories {
     jcenter()
-    maven {
-        url "https://jitpack.io"
-    }
 }
 
 android {
@@ -20,7 +17,6 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "com.yh.yhui.app"
         minSdkVersion 14
         targetSdkVersion 22
         versionCode 1
@@ -28,8 +24,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_6
-        targetCompatibility JavaVersion.VERSION_1_6
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
     buildTypes {
         release {
@@ -40,10 +36,5 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:22.1.1'
-    compile('com.mikepenz.materialdrawer:library:2.9.5@aar') {
-        transitive = true
-    }
-    compile project(':CircularReveal')
+    compile 'com.nineoldandroids:library:2.4.0'
 }
