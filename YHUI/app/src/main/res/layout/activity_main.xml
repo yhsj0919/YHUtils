@@ -1,0 +1,41 @@
+<io.codetail.widget.RevealFrameLayout
+        xmlns:android = "http://schemas.android.com/apk/res/android"
+        xmlns:app = "http://schemas.android.com/apk/res-auto"
+        android:id = "@+id/fragment_container"
+        android:layout_width = "match_parent"
+        android:layout_height = "match_parent"
+        android:orientation = "vertical">
+
+    <LinearLayout
+            android:id = "@+id/content_overlay"
+            android:layout_width = "match_parent"
+            android:layout_height = "match_parent"
+            android:orientation = "vertical"/>
+
+    <LinearLayout
+            android:id = "@+id/content_root"
+            android:layout_width = "match_parent"
+            android:layout_height = "match_parent"
+            android:orientation = "vertical">
+
+        <android.support.v7.widget.Toolbar
+                android:id = "@+id/toolbar"
+                android:layout_width = "match_parent"
+                android:layout_height = "?attr/actionBarSize"
+                android:background = "?attr/colorPrimary"
+                android:theme = "@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme = "@style/ThemeOverlay.AppCompat.Light"/>
+
+
+        <LinearLayout
+                android:id = "@+id/content_frame"
+                android:layout_width = "match_parent"
+                android:layout_height = "match_parent"
+                android:orientation = "vertical"/>
+
+
+    </LinearLayout>
+
+
+</io.codetail.widget.RevealFrameLayout>
+

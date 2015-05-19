@@ -1,0 +1,10 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name = "AppTheme" parent = "MaterialDrawerTheme.Light.DarkToolbar.TranslucentStatus">
+        <item name = "android:windowContentOverlay">@null</item>
+        <item name = "android:actionBarDivider">@null</item>
+
+    </style>
+
+</resources>

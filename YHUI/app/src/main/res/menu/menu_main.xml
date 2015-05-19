@@ -1,0 +1,26 @@
+<menu xmlns:android = "http://schemas.android.com/apk/res/android"
+      xmlns:app = "http://schemas.android.com/apk/res-auto"
+      xmlns:tools = "http://schemas.android.com/tools"
+      tools:context = ".MainActivity">
+    <item
+            android:id = "@+id/action_settings"
+            android:title = "设置"
+            android:orderInCategory = "100"
+            android:icon = "@drawable/abc_btn_radio_material"
+            app:showAsAction = "never|ifRoom|withText"/>
+
+    <item
+            android:id = "@+id/action_add"
+            android:title = "添加"
+            android:orderInCategory = "90"
+            android:icon = "@drawable/abc_btn_radio_material"
+            app:showAsAction = "ifRoom|withText"/>
+    <item
+            android:id = "@+id/action_chenge"
+            android:title = "修改"
+            android:orderInCategory = "80"
+            android:icon = "@drawable/abc_btn_radio_material"
+            app:showAsAction = "ifRoom|withText"/>
+
+
+</menu>
