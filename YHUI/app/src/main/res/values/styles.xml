@@ -5,6 +5,10 @@
         <item name = "android:windowContentOverlay">@null</item>
         <item name = "android:actionBarDivider">@null</item>
 
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
     </style>
 
 </resources>

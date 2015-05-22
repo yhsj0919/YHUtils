@@ -10,7 +10,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/CircularRevea" />
             <option value="$PROJECT_DIR$/CircularReveal" />
             <option value="$PROJECT_DIR$/app" />
           </set>
