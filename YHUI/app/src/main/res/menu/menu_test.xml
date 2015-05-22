@@ -6,14 +6,14 @@
             android:id = "@+id/action_del"
             android:title = "删除"
             android:orderInCategory = "100"
-            android:icon = "@drawable/abc_btn_radio_material"
+            android:icon = "@drawable/abc_btn_rating_star_off_mtrl_alpha"
             app:showAsAction = "never|ifRoom|withText"/>
 
     <item
             android:id = "@+id/action_add"
             android:title = "添加"
             android:orderInCategory = "90"
-            android:icon = "@drawable/abc_btn_radio_material"
+            android:icon = "@drawable/abc_btn_check_material"
             app:showAsAction = "ifRoom|withText"/>
     <item
             android:id = "@+id/action_chenge"
