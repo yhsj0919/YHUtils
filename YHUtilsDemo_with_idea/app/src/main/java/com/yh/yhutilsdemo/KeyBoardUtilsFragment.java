@@ -8,10 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import xyz.yhsj.yhutils.ViewUtils;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
 import xyz.yhsj.yhutils.tools.keyboard.KeyBoardUtils;
-import xyz.yhsj.yhutils.view.annotation.ViewInject;
-import xyz.yhsj.yhutils.view.annotation.event.OnClick;
 
 
 /**

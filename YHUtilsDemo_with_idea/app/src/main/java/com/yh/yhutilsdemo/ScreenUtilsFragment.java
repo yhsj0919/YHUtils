@@ -9,12 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import xyz.yhsj.yhutils.ViewUtils;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.util.LogUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
 import xyz.yhsj.yhutils.tools.io.ImageUtils;
 import xyz.yhsj.yhutils.tools.phone.ScreenUtils;
-import xyz.yhsj.yhutils.util.LogUtils;
-import xyz.yhsj.yhutils.view.annotation.ViewInject;
-import xyz.yhsj.yhutils.view.annotation.event.OnClick;
 
 
 /**
@@ -70,7 +70,7 @@ public class ScreenUtilsFragment extends Fragment {
                 float scale = context.getResources().getDisplayMetrics().densityDpi;
 
 
-                LogUtils.i(scale+"");
+                LogUtils.i(scale + "");
 
                 break;
             case R.id.isTablet:

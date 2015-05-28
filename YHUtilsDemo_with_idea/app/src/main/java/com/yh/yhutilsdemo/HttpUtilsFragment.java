@@ -8,17 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import xyz.yhsj.yhutils.HttpUtils;
-import xyz.yhsj.yhutils.ViewUtils;
-import xyz.yhsj.yhutils.exception.HttpException;
-import xyz.yhsj.yhutils.http.RequestParams;
-import xyz.yhsj.yhutils.http.ResponseInfo;
-import xyz.yhsj.yhutils.http.callback.RequestCallBack;
-import xyz.yhsj.yhutils.http.client.HttpRequest;
-import xyz.yhsj.yhutils.util.LogUtils;
-import xyz.yhsj.yhutils.util.PreferencesCookieStore;
-import xyz.yhsj.yhutils.view.annotation.ViewInject;
-import xyz.yhsj.yhutils.view.annotation.event.OnClick;
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest;
+import com.lidroid.xutils.util.LogUtils;
+import com.lidroid.xutils.util.PreferencesCookieStore;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
 
 
 /**

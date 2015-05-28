@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import xyz.yhsj.yhutils.ViewUtils;
-import xyz.yhsj.yhutils.view.annotation.ViewInject;
-import xyz.yhsj.yhutils.view.annotation.event.OnItemClick;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnItemClick;
 
 import java.util.ArrayList;
 

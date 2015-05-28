@@ -47,5 +47,4 @@ dependencies {
     }
     compile project(':CircularReveal')
     compile files('libs/yhutils.jar')
-    compile 'de.greenrobot:eventbus:2.4.0'
 }

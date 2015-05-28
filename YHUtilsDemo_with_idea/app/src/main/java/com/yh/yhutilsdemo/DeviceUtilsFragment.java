@@ -8,9 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import xyz.yhsj.yhutils.ViewUtils;
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.view.annotation.ViewInject;
 import xyz.yhsj.yhutils.tools.phone.DeviceUtils;
-import xyz.yhsj.yhutils.view.annotation.ViewInject;
+
 
 
 /**

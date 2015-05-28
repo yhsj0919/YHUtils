@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.Toast;
+import com.lidroid.xutils.util.LogUtils;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
@@ -24,6 +25,8 @@ import com.mikepenz.materialdrawer.util.KeyboardUtil;
 import com.yh.yhui.app.R;
 import com.yh.yhui.app.fragment.MainFragment;
 import com.yh.yhui.app.fragment.SecondFragment;
+import com.yh.yhui.app.mode.MyEvent;
+import de.greenrobot.event.EventBus;
 import io.codetail.animation.SupportAnimator;
 import io.codetail.animation.ViewAnimationUtils;
 
@@ -31,213 +34,226 @@ import io.codetail.animation.ViewAnimationUtils;
 public class MainActivity extends AppCompatActivity {
 
 
-    private Drawer result = null;
-    private Toolbar toolbar;
-    private AccountHeader headerResult = null;
+	private Drawer result = null;
+	private Toolbar toolbar;
+	private AccountHeader headerResult = null;
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
 
-        // Handle Toolbar
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+		// Handle Toolbar
+		toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
 
-        setDrawer(savedInstanceState);
-    }
+		setDrawer(savedInstanceState);
+		EventBus.getDefault().register(this);
+	}
 
-    private void setDrawer(Bundle savedInstanceState) {
+	private void setDrawer(Bundle savedInstanceState) {
 
-        headerResult = new AccountHeaderBuilder()
-                .withActivity(this)
-                .withHeaderBackground(R.drawable.header)
-                .addProfiles(
-                        new ProfileDrawerItem().withEmail("1130402124@qq.com").withName("永恒瞬间").withIcon(getResources().getDrawable(R.drawable.profile)),
-                        new ProfileSettingDrawerItem().withName("修改密码").withDescription("修改密码").withIcon(GoogleMaterial.Icon.gmd_settings_backup_restore).withIdentifier(1),
-                        new ProfileSettingDrawerItem().withName("管理账户").withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(2)
-                )
-                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
-                    @Override
-                    public boolean onProfileChanged(View view, IProfile profile, boolean current) {
+		headerResult = new AccountHeaderBuilder()
+				.withActivity(this)
+				.withHeaderBackground(R.drawable.header)
+				.addProfiles(
+						new ProfileDrawerItem().withEmail("1130402124@qq.com").withName("永恒瞬间").withIcon(getResources().getDrawable(R.drawable.logo)),
+						new ProfileSettingDrawerItem().withName("修改密码").withDescription("修改密码").withIcon(GoogleMaterial.Icon.gmd_settings_backup_restore).withIdentifier(1),
+						new ProfileSettingDrawerItem().withName("管理账户").withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(2)
+				)
+				.withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+					@Override
+					public boolean onProfileChanged(View view, IProfile profile, boolean current) {
 
-                        if (profile != null && profile instanceof IDrawerItem) {
-                            switch (profile.getIdentifier()) {
-                                case 1:
-                                    Toast.makeText(MainActivity.this, "修改密码", Toast.LENGTH_SHORT).show();
-                                    break;
-                                case 2:
-                                    Toast.makeText(MainActivity.this, "管理账户", Toast.LENGTH_SHORT).show();
-                                    break;
-                                default:
-                                    break;
-                            }
-                        }
-                        return false;
-                    }
-                })
-                .withSavedInstance(savedInstanceState)
-                .build();
+						if (profile != null && profile instanceof IDrawerItem) {
+							switch (profile.getIdentifier()) {
+								case 1:
+									Toast.makeText(MainActivity.this, "修改密码", Toast.LENGTH_SHORT).show();
+									break;
+								case 2:
+									Toast.makeText(MainActivity.this, "管理账户", Toast.LENGTH_SHORT).show();
+									break;
+								default:
+									break;
+							}
+						}
+						return false;
+					}
+				})
+				.withSavedInstance(savedInstanceState)
+				.build();
 
-        result = new DrawerBuilder()
-                .withActivity(this)
-                .withToolbar(toolbar)
-                .withActionBarDrawerToggle(true)
-                .withAccountHeader(headerResult)
-                .addDrawerItems(
-                        new PrimaryDrawerItem().withName("待办").withIdentifier(1).withBadge("5").withIcon(GoogleMaterial.Icon.gmd_notifications),
-                        new PrimaryDrawerItem().withName("通讯录").withIdentifier(2).withIcon(GoogleMaterial.Icon.gmd_local_phone),
-                        new PrimaryDrawerItem().withName("企信").withIdentifier(3).withIcon(GoogleMaterial.Icon.gmd_message),
-                        new SectionDrawerItem().withName("OA办公自动化"),
-                        new PrimaryDrawerItem().withName("考勤管理").withIdentifier(4).withIcon(GoogleMaterial.Icon.gmd_blur_circular),
-                        new PrimaryDrawerItem().withName("日志上报").withIdentifier(10).withIcon(FontAwesome.Icon.faw_edit),
-                        new PrimaryDrawerItem().withName("自定义审批").withIdentifier(11).withIcon(GoogleMaterial.Icon.gmd_content_paste),
-                        new PrimaryDrawerItem().withName("拍照上传").withIdentifier(13).withIcon(FontAwesome.Icon.faw_camera),
-                        new PrimaryDrawerItem().withName("论坛交流").withIdentifier(17).withIcon(FontAwesome.Icon.faw_wechat),
-                        new PrimaryDrawerItem().withName("新闻公告").withIdentifier(18).withIcon(FontAwesome.Icon.faw_newspaper_o),
-                        new SectionDrawerItem().withName("客户关系管理"),
-                        new PrimaryDrawerItem().withName("客户管理").withIdentifier(5).withIcon(GoogleMaterial.Icon.gmd_people),
-                        new PrimaryDrawerItem().withName("客户拜访").withIdentifier(6).withIcon(GoogleMaterial.Icon.gmd_nature_people),
-                        new SectionDrawerItem().withName("供应链管理"),
-                        new PrimaryDrawerItem().withName("订单管理").withIdentifier(7).withIcon(GoogleMaterial.Icon.gmd_event_available),
-                        new PrimaryDrawerItem().withName("退货管理").withIdentifier(8).withIcon(FontAwesome.Icon.faw_truck),
-                        new PrimaryDrawerItem().withName("竞品管理").withIdentifier(14).withIcon(FontAwesome.Icon.faw_thumbs_up),
-                        new PrimaryDrawerItem().withName("库存查询").withIdentifier(15).withIcon(GoogleMaterial.Icon.gmd_store),
-                        new PrimaryDrawerItem().withName("报表统计").withIdentifier(16).withIcon(FontAwesome.Icon.faw_line_chart),
-                        new SectionDrawerItem().withName("财务管理"),
-                        new PrimaryDrawerItem().withName("销售账务").withIdentifier(9).withIcon(FontAwesome.Icon.faw_cc_paypal),
-                        new PrimaryDrawerItem().withName("财务信息").withIdentifier(12).withIcon(FontAwesome.Icon.faw_money),
-                        new DividerDrawerItem(),
-                        new SecondaryDrawerItem().withName("设置").withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(19)
-                ).addStickyDrawerItems(
+		result = new DrawerBuilder()
+				.withActivity(this)
+				.withToolbar(toolbar)
+				.withActionBarDrawerToggle(true)
+				.withAccountHeader(headerResult)
+				.addDrawerItems(
+						new PrimaryDrawerItem().withName("待办").withIdentifier(1).withBadge("5").withIcon(GoogleMaterial.Icon.gmd_notifications),
+						new PrimaryDrawerItem().withName("通讯录").withIdentifier(2).withIcon(GoogleMaterial.Icon.gmd_local_phone),
+						new PrimaryDrawerItem().withName("企信").withIdentifier(3).withIcon(GoogleMaterial.Icon.gmd_message),
+						new SectionDrawerItem().withName("OA办公自动化"),
+						new PrimaryDrawerItem().withName("考勤管理").withIdentifier(4).withIcon(GoogleMaterial.Icon.gmd_blur_circular),
+						new PrimaryDrawerItem().withName("日志上报").withIdentifier(10).withIcon(FontAwesome.Icon.faw_edit),
+						new PrimaryDrawerItem().withName("自定义审批").withIdentifier(11).withIcon(GoogleMaterial.Icon.gmd_content_paste),
+						new PrimaryDrawerItem().withName("拍照上传").withIdentifier(13).withIcon(FontAwesome.Icon.faw_camera),
+						new PrimaryDrawerItem().withName("论坛交流").withIdentifier(17).withIcon(FontAwesome.Icon.faw_wechat),
+						new PrimaryDrawerItem().withName("新闻公告").withIdentifier(18).withIcon(FontAwesome.Icon.faw_newspaper_o),
+						new SectionDrawerItem().withName("客户关系管理"),
+						new PrimaryDrawerItem().withName("客户管理").withIdentifier(5).withIcon(GoogleMaterial.Icon.gmd_people),
+						new PrimaryDrawerItem().withName("客户拜访").withIdentifier(6).withIcon(GoogleMaterial.Icon.gmd_nature_people),
+						new SectionDrawerItem().withName("供应链管理"),
+						new PrimaryDrawerItem().withName("订单管理").withIdentifier(7).withIcon(GoogleMaterial.Icon.gmd_event_available),
+						new PrimaryDrawerItem().withName("退货管理").withIdentifier(8).withIcon(FontAwesome.Icon.faw_truck),
+						new PrimaryDrawerItem().withName("竞品管理").withIdentifier(14).withIcon(FontAwesome.Icon.faw_thumbs_up),
+						new PrimaryDrawerItem().withName("库存查询").withIdentifier(15).withIcon(GoogleMaterial.Icon.gmd_store),
+						new PrimaryDrawerItem().withName("报表统计").withIdentifier(16).withIcon(FontAwesome.Icon.faw_line_chart),
+						new SectionDrawerItem().withName("财务管理"),
+						new PrimaryDrawerItem().withName("销售账务").withIdentifier(9).withIcon(FontAwesome.Icon.faw_cc_paypal),
+						new PrimaryDrawerItem().withName("财务信息").withIdentifier(12).withIcon(FontAwesome.Icon.faw_money),
+						new DividerDrawerItem(),
+						new SecondaryDrawerItem().withName("设置").withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(19)
+				).addStickyDrawerItems(
 
-                        new SecondaryDrawerItem().withName("退出").withIcon(GoogleMaterial.Icon.gmd_exit_to_app).withIdentifier(20)
-                )
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, final IDrawerItem drawerItem) {
-                        if (drawerItem != null && drawerItem instanceof Nameable) {
-                            getSupportActionBar().setTitle(((Nameable) drawerItem).getName());
-                            switch (drawerItem.getIdentifier()) {
-                                case 1:
-                                    chengeAty(new MainFragment(((Nameable) drawerItem).getName()), R.color.colorPrimary);
-                                    toolbar.getMenu().clear();
-                                    toolbar.inflateMenu(R.menu.menu_main);
-                                    break;
-                                case 2:
-                                    chengeAty(new SecondFragment(), R.color.colorPrimary);
-                                    toolbar.getMenu().clear();
-                                    toolbar.inflateMenu(R.menu.menu_test);
-                                    break;
-                                default:
-                                    chengeAty(new MainFragment(((Nameable) drawerItem).getName()), R.color.colorPrimary);
-                                    break;
-                            }
-                        }
-                        return false;
-                    }
-                })
-                .withOnDrawerListener(new Drawer.OnDrawerListener() {
-                    @Override
-                    public void onDrawerOpened(View drawerView) {
-                        KeyboardUtil.hideKeyboard(MainActivity.this);
-                    }
+						new SecondaryDrawerItem().withName("退出").withIcon(GoogleMaterial.Icon.gmd_exit_to_app).withIdentifier(20)
+				)
+				.withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+					@Override
+					public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, final IDrawerItem drawerItem) {
+						if (drawerItem != null && drawerItem instanceof Nameable) {
+							getSupportActionBar().setTitle(((Nameable) drawerItem).getName());
+							switch (drawerItem.getIdentifier()) {
+								case 1:
+									chengeAty(new MainFragment(((Nameable) drawerItem).getName()), R.color.colorPrimary);
+									toolbar.getMenu().clear();
+									toolbar.inflateMenu(R.menu.menu_main);
+									break;
+								case 2:
+									chengeAty(new SecondFragment(), R.color.colorPrimary);
+									toolbar.getMenu().clear();
+									toolbar.inflateMenu(R.menu.menu_test);
+									break;
+								default:
+									chengeAty(new MainFragment(((Nameable) drawerItem).getName()), R.color.colorPrimary);
+									break;
+							}
+						}
+						return false;
+					}
+				})
+				.withOnDrawerListener(new Drawer.OnDrawerListener() {
+					@Override
+					public void onDrawerOpened(View drawerView) {
+						KeyboardUtil.hideKeyboard(MainActivity.this);
+					}
 
-                    @Override
-                    public void onDrawerClosed(View drawerView) {
-                    }
+					@Override
+					public void onDrawerClosed(View drawerView) {
+					}
 
-                    @Override
-                    public void onDrawerSlide(View drawerView, float slideOffset) {
-                    }
-                })
-                .withFireOnInitialOnClick(true)
-                .withSavedInstance(savedInstanceState)
-                .build();
+					@Override
+					public void onDrawerSlide(View drawerView, float slideOffset) {
+					}
+				})
+				.withFireOnInitialOnClick(true)
+				.withSavedInstance(savedInstanceState)
+				.build();
 
-        result.keyboardSupportEnabled(this, true);
-
-
-    }
-
-    /**
-     * 切换fragment
-     *
-     * @param myfragment    要切换的界面
-     * @param overlay_color 切换时的颜色
-     */
-    public void chengeAty(Fragment myfragment, int overlay_color) {
-
-        View myView = findViewById(R.id.content_root);
-
-        // 获取主容器的长宽
-        int cx = (myView.getLeft() + myView.getRight()) / 2;
-        int cy = (myView.getTop() + myView.getBottom()) / 2;
-
-        //防止界面未加载时报错
-        if (cx > 0 && cy > 0) {
-
-            // 获取最终半径
-            int finalRadius = Math.max(myView.getWidth(), myView.getHeight());
-
-            SupportAnimator animator = ViewAnimationUtils.createCircularReveal(myView, cx, cy, 0, finalRadius);
-
-            animator.setInterpolator(new AccelerateInterpolator());
-
-            animator.setDuration(500);
-
-            findViewById(R.id.content_overlay).setBackgroundColor(getResources().getColor(overlay_color));
-
-            animator.start();
-
-        }
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myfragment).commit();
-
-    }
+		result.keyboardSupportEnabled(this, true);
 
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState = result.saveInstanceState(outState);
-        outState = headerResult.saveInstanceState(outState);
-        super.onSaveInstanceState(outState);
-    }
+	}
 
-    @Override
-    public void onBackPressed() {
-        if (result != null && result.isDrawerOpen()) {
-            result.closeDrawer();
-        } else {
-            super.onBackPressed();
-        }
-    }
+	/**
+	 * 切换fragment
+	 *
+	 * @param myfragment    要切换的界面
+	 * @param overlay_color 切换时的颜色
+	 */
+	public void chengeAty(Fragment myfragment, int overlay_color) {
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+		View myView = findViewById(R.id.content_root);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+		// 获取主容器的长宽
+		int cx = (myView.getLeft() + myView.getRight()) / 2;
+		int cy = (myView.getTop() + myView.getBottom()) / 2;
 
-        switch (item.getItemId()) {
+		//防止界面未加载时报错
+		if (cx > 0 && cy > 0) {
 
-            case R.id.action_chenge:
-                System.err.println(item.getTitle());
-                return true;
-            case R.id.action_add:
-                System.err.println(item.getTitle());
-                return true;
-            case R.id.action_del:
-                System.err.println(item.getTitle());
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+			// 获取最终半径
+			int finalRadius = Math.max(myView.getWidth(), myView.getHeight());
+
+			SupportAnimator animator = ViewAnimationUtils.createCircularReveal(myView, cx, cy, 0, finalRadius);
+
+			animator.setInterpolator(new AccelerateInterpolator());
+
+			animator.setDuration(500);
+
+			findViewById(R.id.content_overlay).setBackgroundColor(getResources().getColor(overlay_color));
+
+			animator.start();
+
+		}
+
+		getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myfragment).commit();
+
+	}
 
 
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState = result.saveInstanceState(outState);
+		outState = headerResult.saveInstanceState(outState);
+		super.onSaveInstanceState(outState);
+	}
+
+	@Override
+	public void onBackPressed() {
+		if (result != null && result.isDrawerOpen()) {
+			result.closeDrawer();
+		} else {
+			super.onBackPressed();
+		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu_main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+
+		switch (item.getItemId()) {
+
+			case R.id.action_chenge:
+				System.err.println(item.getTitle());
+				return true;
+			case R.id.action_add:
+				System.err.println(item.getTitle());
+				return true;
+			case R.id.action_del:
+				System.err.println(item.getTitle());
+				return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+
+	public void onEvent(MyEvent event) {
+		if (event.getType().equals("0")) {
+			LogUtils.i(event.getContent());
+		}
+	}
+
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		EventBus.getDefault().unregister(this);
+	}
 }
