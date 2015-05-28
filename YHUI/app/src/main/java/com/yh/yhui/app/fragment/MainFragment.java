@@ -21,6 +21,10 @@ public class MainFragment extends Fragment {
         this.title = title;
     }
 
+    public MainFragment() {
+
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

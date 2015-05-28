@@ -190,6 +190,7 @@ public class MainActivity extends AppCompatActivity {
             findViewById(R.id.content_overlay).setBackgroundColor(getResources().getColor(overlay_color));
 
             animator.start();
+
         }
 
         getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myfragment).commit();
@@ -199,14 +200,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        //保存当前的界面状态
         outState = result.saveInstanceState(outState);
+        outState = headerResult.saveInstanceState(outState);
         super.onSaveInstanceState(outState);
     }
 
     @Override
     public void onBackPressed() {
-        //handle the back press :D close the drawer first and if the drawer is closed close the activity
         if (result != null && result.isDrawerOpen()) {
             result.closeDrawer();
         } else {
