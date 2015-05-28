@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import com.yh.yhui.app.R;
 
 
@@ -14,9 +15,10 @@ import com.yh.yhui.app.R;
  */
 public class MainFragment extends Fragment {
 
+    private String title;
 
-    public MainFragment() {
-        // Required empty public constructor
+    public MainFragment(String title) {
+        this.title = title;
     }
 
 
@@ -26,6 +28,8 @@ public class MainFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
+        TextView textView = (TextView) rootView.findViewById(R.id.text);
+        textView.setText(title);
 
         return rootView;
     }

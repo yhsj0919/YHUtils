@@ -13,7 +13,9 @@ import android.widget.Toast;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
+import com.mikepenz.materialdrawer.accountswitcher.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.model.*;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
@@ -29,9 +31,9 @@ import io.codetail.animation.ViewAnimationUtils;
 public class MainActivity extends AppCompatActivity {
 
 
-    private Drawer.Result result = null;
+    private Drawer result = null;
     private Toolbar toolbar;
-    private AccountHeader.Result headerResult = null;
+    private AccountHeader headerResult = null;
 
 
     @Override
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setDrawer(Bundle savedInstanceState) {
 
-        headerResult = new AccountHeader()
+        headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.header)
                 .addProfiles(
@@ -78,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 .withSavedInstance(savedInstanceState)
                 .build();
 
-        result = new Drawer()
+        result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
                 .withActionBarDrawerToggle(true)
@@ -87,23 +89,25 @@ public class MainActivity extends AppCompatActivity {
                         new PrimaryDrawerItem().withName("待办").withIdentifier(1).withBadge("5").withIcon(GoogleMaterial.Icon.gmd_notifications),
                         new PrimaryDrawerItem().withName("通讯录").withIdentifier(2).withIcon(GoogleMaterial.Icon.gmd_local_phone),
                         new PrimaryDrawerItem().withName("企信").withIdentifier(3).withIcon(GoogleMaterial.Icon.gmd_message),
-                        new SectionDrawerItem().withName("功能模块"),
+                        new SectionDrawerItem().withName("OA办公自动化"),
                         new PrimaryDrawerItem().withName("考勤管理").withIdentifier(4).withIcon(GoogleMaterial.Icon.gmd_blur_circular),
-                        new PrimaryDrawerItem().withName("客户管理").withIdentifier(5).withIcon(GoogleMaterial.Icon.gmd_people),
-                        new PrimaryDrawerItem().withName("客户拜访").withIdentifier(6).withIcon(GoogleMaterial.Icon.gmd_nature_people),
-                        new PrimaryDrawerItem().withName("订单管理").withIdentifier(7).withIcon(GoogleMaterial.Icon.gmd_event_available),
-                        new PrimaryDrawerItem().withName("退货管理").withIdentifier(8).withIcon(FontAwesome.Icon.faw_truck),
-                        new PrimaryDrawerItem().withName("销售账务").withIdentifier(9).withIcon(FontAwesome.Icon.faw_cc_paypal),
                         new PrimaryDrawerItem().withName("日志上报").withIdentifier(10).withIcon(FontAwesome.Icon.faw_edit),
                         new PrimaryDrawerItem().withName("自定义审批").withIdentifier(11).withIcon(GoogleMaterial.Icon.gmd_content_paste),
-                        new PrimaryDrawerItem().withName("财务信息").withIdentifier(12).withIcon(FontAwesome.Icon.faw_money),
                         new PrimaryDrawerItem().withName("拍照上传").withIdentifier(13).withIcon(FontAwesome.Icon.faw_camera),
+                        new PrimaryDrawerItem().withName("论坛交流").withIdentifier(17).withIcon(FontAwesome.Icon.faw_wechat),
+                        new PrimaryDrawerItem().withName("新闻公告").withIdentifier(18).withIcon(FontAwesome.Icon.faw_newspaper_o),
+                        new SectionDrawerItem().withName("客户关系管理"),
+                        new PrimaryDrawerItem().withName("客户管理").withIdentifier(5).withIcon(GoogleMaterial.Icon.gmd_people),
+                        new PrimaryDrawerItem().withName("客户拜访").withIdentifier(6).withIcon(GoogleMaterial.Icon.gmd_nature_people),
+                        new SectionDrawerItem().withName("供应链管理"),
+                        new PrimaryDrawerItem().withName("订单管理").withIdentifier(7).withIcon(GoogleMaterial.Icon.gmd_event_available),
+                        new PrimaryDrawerItem().withName("退货管理").withIdentifier(8).withIcon(FontAwesome.Icon.faw_truck),
                         new PrimaryDrawerItem().withName("竞品管理").withIdentifier(14).withIcon(FontAwesome.Icon.faw_thumbs_up),
                         new PrimaryDrawerItem().withName("库存查询").withIdentifier(15).withIcon(GoogleMaterial.Icon.gmd_store),
                         new PrimaryDrawerItem().withName("报表统计").withIdentifier(16).withIcon(FontAwesome.Icon.faw_line_chart),
-                        new PrimaryDrawerItem().withName("论坛交流").withIdentifier(17).withIcon(FontAwesome.Icon.faw_wechat),
-                        new PrimaryDrawerItem().withName("新闻公告").withIdentifier(18).withIcon(FontAwesome.Icon.faw_newspaper_o),
-
+                        new SectionDrawerItem().withName("财务管理"),
+                        new PrimaryDrawerItem().withName("销售账务").withIdentifier(9).withIcon(FontAwesome.Icon.faw_cc_paypal),
+                        new PrimaryDrawerItem().withName("财务信息").withIdentifier(12).withIcon(FontAwesome.Icon.faw_money),
                         new DividerDrawerItem(),
                         new SecondaryDrawerItem().withName("设置").withIcon(GoogleMaterial.Icon.gmd_settings).withIdentifier(19)
                 ).addStickyDrawerItems(
@@ -112,12 +116,12 @@ public class MainActivity extends AppCompatActivity {
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id, final IDrawerItem drawerItem) {
+                    public boolean onItemClick(AdapterView<?> parent, View view, int position, long id, final IDrawerItem drawerItem) {
                         if (drawerItem != null && drawerItem instanceof Nameable) {
                             getSupportActionBar().setTitle(((Nameable) drawerItem).getName());
                             switch (drawerItem.getIdentifier()) {
                                 case 1:
-                                    chengeAty(new MainFragment(), R.color.colorPrimary);
+                                    chengeAty(new MainFragment(((Nameable) drawerItem).getName()), R.color.colorPrimary);
                                     toolbar.getMenu().clear();
                                     toolbar.inflateMenu(R.menu.menu_main);
                                     break;
@@ -127,10 +131,11 @@ public class MainActivity extends AppCompatActivity {
                                     toolbar.inflateMenu(R.menu.menu_test);
                                     break;
                                 default:
-                                    chengeAty(new MainFragment(), R.color.colorPrimary);
+                                    chengeAty(new MainFragment(((Nameable) drawerItem).getName()), R.color.colorPrimary);
                                     break;
                             }
                         }
+                        return false;
                     }
                 })
                 .withOnDrawerListener(new Drawer.OnDrawerListener() {
