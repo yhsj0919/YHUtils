@@ -1,11 +1,15 @@
 package xyz.yhsj.yhutilsdemo;
 
-import xyz.yhsj.yhutils.ViewUtils;
-import xyz.yhsj.yhutils.util.LogUtils;
-import xyz.yhsj.yhutils.view.annotation.event.OnClick;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.lidroid.xutils.ViewUtils;
+import com.lidroid.xutils.util.LogUtils;
+import com.lidroid.xutils.view.annotation.event.OnClick;
+
+
 
 public class MainActivity extends Activity {
 

@@ -1,6 +1,5 @@
 package xyz.yhsj.yhutils.tools.phone;
 
-import xyz.yhsj.yhutils.util.LogUtils;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -8,6 +7,8 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
+
+import com.lidroid.xutils.util.LogUtils;
 
 /**
  * 网络 工具类<Br>

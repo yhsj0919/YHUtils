@@ -1,10 +1,11 @@
 package xyz.yhsj.yhutils.tools.phone;
 
-import xyz.yhsj.yhutils.util.LogUtils;
 import android.content.Context;
 import android.net.wifi.WifiManager;
 import android.telephony.TelephonyManager;
 import android.text.format.Formatter;
+
+import com.lidroid.xutils.util.LogUtils;
 
 /**
  * 获取手机信息工具类<br>
