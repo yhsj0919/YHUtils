@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+              android:layout_width = "match_parent"
+              android:layout_height = "match_parent"
+              android:background="@color/md_white_1000"
+              android:orientation = "vertical">
+
+    <TextView
+            android:id="@+id/text"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"/>
+
+    <Button
+            android:id="@+id/getinfo"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:text="得到数据"/>
+    <Button
+            android:id="@+id/cookie"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:text="cookie验证"/>
+
+</LinearLayout>
