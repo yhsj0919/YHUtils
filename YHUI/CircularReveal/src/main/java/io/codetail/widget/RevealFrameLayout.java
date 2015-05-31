@@ -89,6 +89,7 @@ public class RevealFrameLayout extends FrameLayout implements RevealAnimator{
     @Override
     protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
         if(!mClipOutlines && child != mTarget)
+
             return super.drawChild(canvas, child, drawingTime);
 
         final int state = canvas.save();

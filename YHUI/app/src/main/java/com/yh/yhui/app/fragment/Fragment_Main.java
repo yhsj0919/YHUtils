@@ -11,7 +11,7 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.yh.yhui.app.R;
-import com.yh.yhui.app.mode.Event_Test;
+import com.yh.yhui.app.mode.Event_Fragment_Chenge;
 import de.greenrobot.event.EventBus;
 
 
@@ -50,9 +50,9 @@ public class Fragment_Main extends Fragment {
 
 	@OnClick(R.id.send)
 	public void btnListener(View v) {
-		Event_Test my = new Event_Test();
-		my.setType("0");
-		my.setContent(title);
+		Event_Fragment_Chenge my = new Event_Fragment_Chenge();
+		my.setId(0);
+		my.setColor(R.color.colorPrimary);
 		EventBus.getDefault().post(my);
 	}
 

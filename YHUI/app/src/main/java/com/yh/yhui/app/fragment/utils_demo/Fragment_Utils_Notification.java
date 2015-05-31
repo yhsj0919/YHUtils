@@ -1,7 +1,6 @@
-package com.yh.yhui.app.fragment;
+package com.yh.yhui.app.fragment.utils_demo;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
