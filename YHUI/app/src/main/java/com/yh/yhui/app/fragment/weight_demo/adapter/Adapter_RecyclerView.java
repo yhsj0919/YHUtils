@@ -26,7 +26,7 @@ public class Adapter_RecyclerView extends RecyclerView.Adapter<Adapter_RecyclerV
 		View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.weight_demo_recyclerview_item, viewGroup, false);
 		ViewHolder vh = new ViewHolder(view);
 		//将创建的View注册点击事件
-		view.setOnClickListener(this);
+//		vh.mTextView.setOnClickListener(this);
 		return vh;
 	}
 
@@ -58,7 +58,7 @@ public class Adapter_RecyclerView extends RecyclerView.Adapter<Adapter_RecyclerV
 	public void onClick(View v) {
 		if (mOnItemClickListener != null) {
 			//注意这里使用getTag方法获取数据
-			mOnItemClickListener.onItemClick(v, (String) v.getTag());
+			mOnItemClickListener.onItemClick(v, ((TextView)v).getText().toString());
 		}
 	}
 

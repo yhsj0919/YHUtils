@@ -1,18 +1,65 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:background="?android:attr/selectableItemBackground"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<com.yh.yhui.app.view.SwipeLayout
+        xmlns:android = "http://schemas.android.com/apk/res/android"
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content">
 
-    <TextView
-            android:padding="16dp"
-            android:id="@+id/text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+    <LinearLayout
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:background = "#ffffff">
 
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/md_grey_200"/>
-</LinearLayout>
+        <TextView
+                android:id = "@+id/text"
+                android:padding = "16dp"
+                android:background="?android:selectableItemBackground"
+                android:layout_width = "match_parent"
+                android:layout_height = "wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width = "150dp"
+            android:layout_height = "50dp">
+
+        <RelativeLayout
+                android:id = "@+id/delete_button"
+                android:clickable = "true"
+                android:layout_width = "50dp"
+                android:layout_height = "50dp"
+                android:background = "#ffff6054">
+            <View
+                    android:layout_centerInParent = "true"
+                    android:layout_width = "28dp"
+                    android:layout_height = "28dp"
+                    android:background = "@drawable/trash"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:id = "@+id/view_button"
+                android:clickable = "true"
+                android:layout_width = "50dp"
+                android:layout_height = "50dp"
+                android:background = "#ff42c24d">
+
+            <View
+                    android:layout_centerInParent = "true"
+                    android:layout_width = "28dp"
+                    android:layout_height = "28dp"
+                    android:background = "@drawable/trash"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:id = "@+id/star_button"
+                android:clickable = "true"
+                android:layout_width = "50dp"
+                android:layout_height = "50dp"
+                android:background = "#ff59bfff">
+
+            <View
+                    android:layout_centerInParent = "true"
+                    android:layout_width = "28dp"
+                    android:layout_height = "28dp"
+                    android:background = "@drawable/trash"/>
+        </RelativeLayout>
+    </LinearLayout>
+</com.yh.yhui.app.view.SwipeLayout>
+
