@@ -7,7 +7,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
-import com.lidroid.xutils.util.LogUtils;
 
 /**
  * Created by Bruce on 11/24/14.
@@ -20,6 +19,8 @@ public class SwipeLayout extends LinearLayout {
     private View actionView;
     private int dragDistance;
     private int draggedX;
+
+    private boolean settleToOpen = false;
 
     public SwipeLayout(Context context) {
         this(context, null);
@@ -58,7 +59,9 @@ public class SwipeLayout extends LinearLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        super.onTouchEvent(event);
         viewDragHelper.processTouchEvent(event);
+
         return true;
     }
 
@@ -72,6 +75,7 @@ public class SwipeLayout extends LinearLayout {
 
     private class DragHelperCallback extends ViewDragHelper.Callback {
 
+
         @Override
         public boolean tryCaptureView(View view, int i) {
             return view == contentView || view == actionView;
@@ -80,8 +84,6 @@ public class SwipeLayout extends LinearLayout {
         @Override
         public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
             draggedX = left;
-            LogUtils.i("draggedX" + draggedX);
-            LogUtils.i("dragDistance" + -dragDistance / 10);
 
             if (changedView == contentView) {
                 actionView.offsetLeftAndRight(dx);
@@ -117,10 +119,6 @@ public class SwipeLayout extends LinearLayout {
         @Override
         public void onViewReleased(View releasedChild, float xvel, float yvel) {
             super.onViewReleased(releasedChild, xvel, yvel);
-            boolean settleToOpen = false;
-
-//            LogUtils.i("draggedX" + draggedX);
-//            LogUtils.i("dragDistance" + -dragDistance / 10);
 
             if (xvel > AUTO_OPEN_SPEED_LIMIT) {
                 settleToOpen = false;
@@ -128,7 +126,7 @@ public class SwipeLayout extends LinearLayout {
                 settleToOpen = true;
             } else if (draggedX <= -dragDistance / 10 && !settleToOpen) {
                 settleToOpen = true;
-            } else if (draggedX > -dragDistance / 1.5 && settleToOpen) {
+            } else if (draggedX <= -dragDistance / 10 && settleToOpen) {
                 settleToOpen = false;
             }
 

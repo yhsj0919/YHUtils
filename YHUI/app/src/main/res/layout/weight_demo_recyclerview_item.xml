@@ -1,19 +1,29 @@
 <com.yh.yhui.app.view.SwipeLayout
         xmlns:android = "http://schemas.android.com/apk/res/android"
         android:layout_width = "match_parent"
+        android:focusable = "true"
         android:layout_height = "wrap_content">
 
     <LinearLayout
+            android:orientation = "vertical"
             android:layout_width = "match_parent"
-            android:layout_height = "wrap_content"
-            android:background = "#ffffff">
+            android:layout_height = "wrap_content">
 
         <TextView
+                android:layout_marginRight = "16dp"
+                android:clickable = "true"
+                android:minHeight = "50dp"
+                android:layout_weight = "1"
                 android:id = "@+id/text"
                 android:padding = "16dp"
-                android:background="?android:selectableItemBackground"
+                android:background = "?android:selectableItemBackground"
                 android:layout_width = "match_parent"
                 android:layout_height = "wrap_content"/>
+
+        <View
+                android:layout_width = "match_parent"
+                android:layout_height = "1dp"
+                android:background = "@color/md_grey_200"/>
     </LinearLayout>
 
     <LinearLayout
@@ -24,41 +34,51 @@
                 android:id = "@+id/delete_button"
                 android:clickable = "true"
                 android:layout_width = "50dp"
-                android:layout_height = "50dp"
-                android:background = "#ffff6054">
-            <View
+                android:background = "?android:selectableItemBackground"
+                android:layout_height = "50dp">
+
+            <ImageView
+                    android:id="@+id/del"
                     android:layout_centerInParent = "true"
-                    android:layout_width = "28dp"
-                    android:layout_height = "28dp"
-                    android:background = "@drawable/trash"/>
+                    android:padding = "10dp"
+                    android:layout_width = "match_parent"
+                    android:layout_height = "match_parent"
+                    android:background = "@drawable/bg_color_red"
+                    android:src = "@drawable/trash"/>
         </RelativeLayout>
 
         <RelativeLayout
                 android:id = "@+id/view_button"
                 android:clickable = "true"
                 android:layout_width = "50dp"
-                android:layout_height = "50dp"
-                android:background = "#ff42c24d">
 
-            <View
+                android:layout_height = "50dp">
+
+            <ImageView
+                    android:id="@+id/add"
+                    android:padding = "10dp"
                     android:layout_centerInParent = "true"
-                    android:layout_width = "28dp"
-                    android:layout_height = "28dp"
-                    android:background = "@drawable/trash"/>
+                    android:layout_width = "match_parent"
+                    android:layout_height = "match_parent"
+                    android:background = "@drawable/bg_color_green"
+                    android:src = "@drawable/trash"/>
         </RelativeLayout>
 
         <RelativeLayout
                 android:id = "@+id/star_button"
                 android:clickable = "true"
                 android:layout_width = "50dp"
-                android:layout_height = "50dp"
-                android:background = "#ff59bfff">
+                android:background = "?android:selectableItemBackground"
+                android:layout_height = "50dp">
 
-            <View
+            <ImageView
+                    android:id="@+id/chenge"
+                    android:padding = "10dp"
                     android:layout_centerInParent = "true"
-                    android:layout_width = "28dp"
-                    android:layout_height = "28dp"
-                    android:background = "@drawable/trash"/>
+                    android:layout_width = "match_parent"
+                    android:layout_height = "match_parent"
+                    android:background = "@drawable/bg_color_blue"
+                    android:src = "@drawable/trash"/>
         </RelativeLayout>
     </LinearLayout>
 </com.yh.yhui.app.view.SwipeLayout>
