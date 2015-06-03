@@ -6,16 +6,16 @@ import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import com.lidroid.xutils.util.LogUtils;
 
 /**
  * Created by Administrator on 2015/2/5.
  */
-public class ProgressBar extends View {
+public class ProgressBar_Modern extends View {
 
 
     private Paint paint;
@@ -33,7 +33,7 @@ public class ProgressBar extends View {
     private long delay = 100;
     private long duration = 1500;
     private float start = -10;
-    private float end ;
+    private float end;
     private int desiredWidth = 500;
     private int desiredHeight = 10;
 
@@ -44,17 +44,17 @@ public class ProgressBar extends View {
     private ObjectAnimator animator4;
     private boolean isRunning = false;
 
-    public ProgressBar(Context context) {
+    public ProgressBar_Modern(Context context) {
         super(context);
 //        init();
     }
 
-    public ProgressBar(Context context, AttributeSet attrs) {
+    public ProgressBar_Modern(Context context, AttributeSet attrs) {
         super(context, attrs);
 //        init();
     }
 
-    public ProgressBar(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ProgressBar_Modern(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 //        init();
     }
@@ -62,19 +62,19 @@ public class ProgressBar extends View {
     private void init() {
 
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(Color.RED);
+        paint.setColor(getResources().getColor(android.R.color.holo_red_light));
 
         paint1 = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint1.setColor(Color.YELLOW);
+        paint1.setColor(getResources().getColor(android.R.color.holo_orange_light));
 
         paint2 = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint2.setColor(Color.GREEN);
+        paint2.setColor(getResources().getColor(android.R.color.holo_green_light));
 
         paint3 = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint3.setColor(Color.BLUE);
+        paint3.setColor(getResources().getColor(android.R.color.holo_blue_light));
 
         paint4 = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint4.setColor(Color.CYAN);
+        paint4.setColor(getResources().getColor(android.R.color.holo_purple));
 
         animator = ObjectAnimator.ofFloat(this, "cx0", start, end);
         animator.setDuration(duration);
@@ -104,8 +104,9 @@ public class ProgressBar extends View {
         animator4.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
+                if (isRunning){
                 start();
-                Log.i("onAnimationEnd", "");
+                LogUtils.i("onAnimationEnd");}
             }
         });
     }
@@ -146,20 +147,50 @@ public class ProgressBar extends View {
             isRunning = true;
         }
 
-        canvas.drawCircle(cx0, 100, 10, paint);
-        canvas.drawCircle(cx1, 100, 10, paint1);
-        canvas.drawCircle(cx2, 100, 10, paint2);
-        canvas.drawCircle(cx3, 100, 10, paint3);
-        canvas.drawCircle(cx4, 100, 10, paint4);
+        canvas.drawCircle(cx0, 12, 10, paint);
+        canvas.drawCircle(cx1, 12, 10, paint1);
+        canvas.drawCircle(cx2, 12, 10, paint2);
+        canvas.drawCircle(cx3, 12, 10, paint3);
+        canvas.drawCircle(cx4, 12, 10, paint4);
     }
 
     public void start() {
-        animator.start();
-        animator1.start();
-        animator2.start();
-        animator3.start();
-        animator4.start();
 
+        if (animator != null && animator1 != null && animator2 != null && animator3 != null && animator4 != null) {
+            animator.start();
+            animator1.start();
+            animator2.start();
+            animator3.start();
+            animator4.start();
+
+            isRunning = true;
+        }
+
+
+    }
+
+    public void cancel() {
+        if (animator != null && animator1 != null && animator2 != null && animator3 != null && animator4 != null) {
+            animator.cancel();
+            animator1.cancel();
+            animator2.cancel();
+            animator3.cancel();
+            animator4.cancel();
+            isRunning = false;
+        }
+    }
+
+
+    @Override
+    protected void onWindowVisibilityChanged(int visibility) {
+        super.onWindowVisibilityChanged(visibility);
+        if (visibility == View.VISIBLE && !isRunning) {
+            LogUtils.i("可见，运行");
+            start();
+        } else if (visibility == View.GONE && isRunning) {
+            LogUtils.i("不可见，暂停");
+            cancel();
+        }
     }
 
     public float getCx0() {

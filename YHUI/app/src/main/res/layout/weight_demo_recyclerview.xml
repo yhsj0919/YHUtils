@@ -21,8 +21,9 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <com.yh.yhui.app.view.ProgressBar
+    <com.yh.yhui.app.view.ProgressBar_Modern
             android:id = "@+id/progress"
+            android:minHeight="30dp"
             android:layout_width = "fill_parent"
-            android:layout_height = "150dp"/>
+            android:layout_height = "12dp"/>
 </LinearLayout>
