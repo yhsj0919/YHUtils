@@ -205,6 +205,9 @@ public class JsonUtil {
 	 * @return
 	 */
 	private static String stringFormat(String jsonStr) {
+		
+		jsonStr = jsonStr.replaceAll("\\\\n", "\n");
+		
 		jsonStr = jsonStr.replace("\\", "");
 
 		if (jsonStr.startsWith("\"")) {
