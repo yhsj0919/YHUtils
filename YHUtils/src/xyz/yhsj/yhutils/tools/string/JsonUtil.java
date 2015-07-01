@@ -5,7 +5,9 @@ import com.google.gson.*;
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -109,6 +111,44 @@ public class JsonUtil {
 	}
 
 	/**
+	 * 将json格式转换成list对象，并准确指定泛型
+	 *
+	 * @param jsonStr
+	 * @param type
+	 * @return
+	 */
+	public static List<Object> jsonToList(String jsonStr, Class<?> cl) {
+		jsonStr = stringFormat(jsonStr);
+		ArrayList<Object> objList = new ArrayList<Object>();
+
+		// 创建一个JsonParser
+		JsonParser parser = new JsonParser();
+
+		// 通过JsonParser对象可以把json格式的字符串解析成一个JsonElement对象
+		JsonElement el = parser.parse(jsonStr);
+
+		JsonArray jsonArray = null;
+
+		if (el.isJsonArray()) {
+
+			jsonArray = el.getAsJsonArray();
+
+			Iterator it = jsonArray.iterator();
+
+			while (it.hasNext()) {
+				JsonElement e = (JsonElement) it.next();
+
+				// JsonElement转换为JavaBean对象
+				if (gson != null) {
+					objList.add(gson.fromJson(e, cl));
+				}
+			}
+		}
+
+		return objList;
+	}
+
+	/**
 	 * 将json格式转换成map对象
 	 *
 	 * @param jsonStr
@@ -205,9 +245,9 @@ public class JsonUtil {
 	 * @return
 	 */
 	private static String stringFormat(String jsonStr) {
-		
+
 		jsonStr = jsonStr.replaceAll("\\\\n", "\n");
-		
+
 		jsonStr = jsonStr.replace("\\", "");
 
 		if (jsonStr.startsWith("\"")) {
