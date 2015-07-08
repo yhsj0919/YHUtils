@@ -117,7 +117,7 @@ public class JsonUtil {
 	 * @param type
 	 * @return
 	 */
-	public static List<Object> jsonToList(String jsonStr, Class<?> cl) {
+	public static List<?> jsonToList(String jsonStr, Class<?> cl) {
 		jsonStr = stringFormat(jsonStr);
 		ArrayList<Object> objList = new ArrayList<Object>();
 
