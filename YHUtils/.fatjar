@@ -1,14 +1,14 @@
 #Fat Jar Configuration File
-#Wed Jun 24 15:25:53 CST 2015
+#Thu Jul 30 09:50:52 CST 2015
 onejar.license.required=true
 manifest.classpath=
 manifest.removesigners=true
 onejar.checkbox=false
-jarname=C\:\\Users\\LOVE\\Desktop\\yhutils.jar
+jarname=C\:\\Users\\YH\\Desktop\\yhutils.jar
 manifest.mergeall=true
 manifest.mainclass=
 manifest.file=<createnew>
 jarname.isextern=true
 onejar.expand=
-excludes=<jar|eventbus-2.4.0.jar>
+excludes=
 includes=
