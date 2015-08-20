@@ -1,5 +1,5 @@
 #Fat Jar Configuration File
-#Thu Jul 30 09:50:52 CST 2015
+#Thu Aug 20 15:28:24 CST 2015
 onejar.license.required=true
 manifest.classpath=
 manifest.removesigners=true
@@ -10,5 +10,5 @@ manifest.mainclass=
 manifest.file=<createnew>
 jarname.isextern=true
 onejar.expand=
-excludes=
+excludes=<jar|eventbus-2.4.0.jar>
 includes=

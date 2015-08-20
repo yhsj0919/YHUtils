@@ -1,6 +1,5 @@
 package xyz.yhsj.yhutils.tools.logutils;
 
-import android.content.Context;
 import xyz.yhsj.yhutils.tools.logutils.utils.SystemUtil;
 
 /**
