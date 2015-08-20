@@ -112,13 +112,4 @@ public final class LogUtils {
 		logger.json(SystemUtil.getStackTrace(), json);
 	}
 
-	/**
-	 * 弹出log信息
-	 * 
-	 * @param json
-	 */
-	public static void alert(Context context, Object object) {
-		logger.alert(context, object);
-	}
-
 }
