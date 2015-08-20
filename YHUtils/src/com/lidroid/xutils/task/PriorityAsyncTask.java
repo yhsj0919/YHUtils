@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.lidroid.xutils.util.LogUtils;
+import xyz.yhsj.yhutils.tools.logutils.LogUtils;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;

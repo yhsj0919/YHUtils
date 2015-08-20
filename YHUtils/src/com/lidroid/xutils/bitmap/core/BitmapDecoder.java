@@ -17,7 +17,7 @@ package com.lidroid.xutils.bitmap.core;
 
 import java.io.FileDescriptor;
 
-import com.lidroid.xutils.util.LogUtils;
+import xyz.yhsj.yhutils.tools.logutils.LogUtils;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

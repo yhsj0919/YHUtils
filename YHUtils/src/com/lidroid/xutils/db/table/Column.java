@@ -18,11 +18,12 @@ package com.lidroid.xutils.db.table;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import xyz.yhsj.yhutils.tools.logutils.LogUtils;
+import android.database.Cursor;
+
 import com.lidroid.xutils.db.converter.ColumnConverter;
 import com.lidroid.xutils.db.converter.ColumnConverterFactory;
 import com.lidroid.xutils.db.sqlite.ColumnDbType;
-import com.lidroid.xutils.util.LogUtils;
-import android.database.Cursor;
 
 public class Column {
 

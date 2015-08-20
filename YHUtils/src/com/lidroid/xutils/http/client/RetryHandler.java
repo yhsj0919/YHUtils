@@ -30,7 +30,7 @@ import org.apache.http.impl.client.RequestWrapper;
 import org.apache.http.protocol.ExecutionContext;
 import org.apache.http.protocol.HttpContext;
 
-import com.lidroid.xutils.util.LogUtils;
+import xyz.yhsj.yhutils.tools.logutils.LogUtils;
 import android.os.SystemClock;
 
 public class RetryHandler implements HttpRequestRetryHandler {

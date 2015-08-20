@@ -1,9 +1,8 @@
 package xyz.yhsj.yhutils.tools.string;
 
+import xyz.yhsj.yhutils.tools.logutils.LogUtils;
 import android.content.Context;
 import android.util.TypedValue;
-
-import com.lidroid.xutils.util.LogUtils;
 
 /**
  * 单位转换 工具类<br>

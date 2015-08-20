@@ -28,8 +28,9 @@ import org.apache.http.entity.AbstractHttpEntity;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 
+import xyz.yhsj.yhutils.tools.logutils.LogUtils;
+
 import com.lidroid.xutils.http.client.util.URLEncodedUtils;
-import com.lidroid.xutils.util.LogUtils;
 
 /**
  * Author: wyouflf

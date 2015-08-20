@@ -45,8 +45,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.http.protocol.HTTP;
 
+import xyz.yhsj.yhutils.tools.logutils.LogUtils;
+
 import com.lidroid.xutils.util.IOUtils;
-import com.lidroid.xutils.util.LogUtils;
 
 /**
  * A cache that uses a bounded amount of space on a filesystem. Each cache

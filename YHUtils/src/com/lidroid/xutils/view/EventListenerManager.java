@@ -22,10 +22,11 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
 
-import com.lidroid.xutils.util.DoubleKeyValueMap;
-import com.lidroid.xutils.util.LogUtils;
-import com.lidroid.xutils.view.annotation.event.EventBase;
+import xyz.yhsj.yhutils.tools.logutils.LogUtils;
 import android.view.View;
+
+import com.lidroid.xutils.util.DoubleKeyValueMap;
+import com.lidroid.xutils.view.annotation.event.EventBase;
 
 public class EventListenerManager {
 

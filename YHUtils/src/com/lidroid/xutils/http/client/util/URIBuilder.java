@@ -26,7 +26,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.conn.util.InetAddressUtils;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.lidroid.xutils.util.LogUtils;
+import xyz.yhsj.yhutils.tools.logutils.LogUtils;
 import android.text.TextUtils;
 
 public class URIBuilder {

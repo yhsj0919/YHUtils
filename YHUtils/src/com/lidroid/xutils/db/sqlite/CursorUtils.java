@@ -17,14 +17,15 @@ package com.lidroid.xutils.db.sqlite;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import xyz.yhsj.yhutils.tools.logutils.LogUtils;
+import android.database.Cursor;
+
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.db.table.Column;
 import com.lidroid.xutils.db.table.DbModel;
 import com.lidroid.xutils.db.table.Finder;
 import com.lidroid.xutils.db.table.Id;
 import com.lidroid.xutils.db.table.Table;
-import com.lidroid.xutils.util.LogUtils;
-import android.database.Cursor;
 
 public class CursorUtils {
 

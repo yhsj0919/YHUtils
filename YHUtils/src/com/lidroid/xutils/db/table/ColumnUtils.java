@@ -15,23 +15,27 @@
 
 package com.lidroid.xutils.db.table;
 
-import android.text.TextUtils;
-import com.lidroid.xutils.db.annotation.*;
-import com.lidroid.xutils.db.annotation.Column;
-import com.lidroid.xutils.db.annotation.Finder;
-import com.lidroid.xutils.db.annotation.Foreign;
-import com.lidroid.xutils.db.annotation.Id;
-import com.lidroid.xutils.db.converter.ColumnConverter;
-import com.lidroid.xutils.db.converter.ColumnConverterFactory;
-import com.lidroid.xutils.db.sqlite.FinderLazyLoader;
-import com.lidroid.xutils.db.sqlite.ForeignLazyLoader;
-import com.lidroid.xutils.util.LogUtils;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.HashSet;
 import java.util.List;
+
+import xyz.yhsj.yhutils.tools.logutils.LogUtils;
+import android.text.TextUtils;
+
+import com.lidroid.xutils.db.annotation.Check;
+import com.lidroid.xutils.db.annotation.Column;
+import com.lidroid.xutils.db.annotation.Finder;
+import com.lidroid.xutils.db.annotation.Foreign;
+import com.lidroid.xutils.db.annotation.Id;
+import com.lidroid.xutils.db.annotation.NotNull;
+import com.lidroid.xutils.db.annotation.Transient;
+import com.lidroid.xutils.db.annotation.Unique;
+import com.lidroid.xutils.db.converter.ColumnConverter;
+import com.lidroid.xutils.db.converter.ColumnConverterFactory;
+import com.lidroid.xutils.db.sqlite.FinderLazyLoader;
+import com.lidroid.xutils.db.sqlite.ForeignLazyLoader;
 
 public class ColumnUtils {
 

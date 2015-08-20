@@ -2,11 +2,10 @@ package xyz.yhsj.yhutils.tools.io;
 
 import java.io.File;
 
+import xyz.yhsj.yhutils.tools.logutils.LogUtils;
 import android.content.Context;
 import android.os.Environment;
 import android.os.StatFs;
-
-import com.lidroid.xutils.util.LogUtils;
 
 /**
  * 内存卡 工具类<br>

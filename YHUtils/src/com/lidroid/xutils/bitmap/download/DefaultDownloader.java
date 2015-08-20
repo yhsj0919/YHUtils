@@ -23,9 +23,10 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
+import xyz.yhsj.yhutils.tools.logutils.LogUtils;
+
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.util.IOUtils;
-import com.lidroid.xutils.util.LogUtils;
 import com.lidroid.xutils.util.OtherUtils;
 
 public class DefaultDownloader extends Downloader {

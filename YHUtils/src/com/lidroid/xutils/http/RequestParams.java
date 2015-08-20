@@ -15,23 +15,6 @@
 
 package com.lidroid.xutils.http;
 
-import android.text.TextUtils;
-import com.lidroid.xutils.http.client.entity.BodyParamsEntity;
-import com.lidroid.xutils.http.client.multipart.HttpMultipartMode;
-import com.lidroid.xutils.http.client.multipart.MultipartEntity;
-import com.lidroid.xutils.http.client.multipart.content.ContentBody;
-import com.lidroid.xutils.http.client.multipart.content.FileBody;
-import com.lidroid.xutils.http.client.multipart.content.InputStreamBody;
-import com.lidroid.xutils.http.client.multipart.content.StringBody;
-import com.lidroid.xutils.util.LogUtils;
-import com.lidroid.xutils.task.Priority;
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
-
 import java.io.File;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -40,6 +23,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+
+import xyz.yhsj.yhutils.tools.logutils.LogUtils;
+import android.text.TextUtils;
+
+import com.lidroid.xutils.http.client.entity.BodyParamsEntity;
+import com.lidroid.xutils.http.client.multipart.HttpMultipartMode;
+import com.lidroid.xutils.http.client.multipart.MultipartEntity;
+import com.lidroid.xutils.http.client.multipart.content.ContentBody;
+import com.lidroid.xutils.http.client.multipart.content.FileBody;
+import com.lidroid.xutils.http.client.multipart.content.InputStreamBody;
+import com.lidroid.xutils.http.client.multipart.content.StringBody;
+import com.lidroid.xutils.task.Priority;
 
 
 public class RequestParams {

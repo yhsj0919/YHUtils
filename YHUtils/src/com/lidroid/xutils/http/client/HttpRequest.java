@@ -28,11 +28,12 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.utils.CloneUtils;
 import org.apache.http.protocol.HTTP;
 
+import xyz.yhsj.yhutils.tools.logutils.LogUtils;
+
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.callback.RequestCallBackHandler;
 import com.lidroid.xutils.http.client.entity.UploadEntity;
 import com.lidroid.xutils.http.client.util.URIBuilder;
-import com.lidroid.xutils.util.LogUtils;
 import com.lidroid.xutils.util.OtherUtils;
 
 /**

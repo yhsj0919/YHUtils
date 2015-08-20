@@ -15,10 +15,12 @@
 
 package com.lidroid.xutils.util;
 
-import org.apache.http.protocol.HTTP;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.http.protocol.HTTP;
+
+import xyz.yhsj.yhutils.tools.logutils.LogUtils;
 
 /**
  * Created by wyouflf on 13-8-30.

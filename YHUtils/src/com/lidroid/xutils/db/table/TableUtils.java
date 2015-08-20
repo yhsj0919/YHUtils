@@ -15,16 +15,17 @@
 
 package com.lidroid.xutils.db.table;
 
-import android.text.TextUtils;
-import com.lidroid.xutils.db.annotation.Id;
-import com.lidroid.xutils.db.annotation.Table;
-import com.lidroid.xutils.db.converter.ColumnConverterFactory;
-import com.lidroid.xutils.util.LogUtils;
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
+
+import xyz.yhsj.yhutils.tools.logutils.LogUtils;
+import android.text.TextUtils;
+
+import com.lidroid.xutils.db.annotation.Id;
+import com.lidroid.xutils.db.annotation.Table;
+import com.lidroid.xutils.db.converter.ColumnConverterFactory;
 
 public class TableUtils {
 

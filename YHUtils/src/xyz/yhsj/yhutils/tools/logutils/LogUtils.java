@@ -1,5 +1,6 @@
 package xyz.yhsj.yhutils.tools.logutils;
 
+import android.content.Context;
 import xyz.yhsj.yhutils.tools.logutils.utils.SystemUtil;
 
 /**
@@ -109,6 +110,15 @@ public final class LogUtils {
 	 */
 	public static void json(String json) {
 		logger.json(SystemUtil.getStackTrace(), json);
+	}
+
+	/**
+	 * 弹出log信息
+	 * 
+	 * @param json
+	 */
+	public static void alert(Context context, Object object) {
+		logger.alert(context, object);
 	}
 
 }

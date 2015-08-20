@@ -21,6 +21,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import xyz.yhsj.yhutils.tools.logutils.LogUtils;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
+
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
 import com.lidroid.xutils.bitmap.BitmapGlobalConfig;
@@ -29,11 +34,7 @@ import com.lidroid.xutils.cache.FileNameGenerator;
 import com.lidroid.xutils.cache.LruDiskCache;
 import com.lidroid.xutils.cache.LruMemoryCache;
 import com.lidroid.xutils.util.IOUtils;
-import com.lidroid.xutils.util.LogUtils;
 import com.lidroid.xutils.util.OtherUtils;
-import android.graphics.Bitmap;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
 
 
 public class BitmapCache {

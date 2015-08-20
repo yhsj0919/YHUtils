@@ -14,7 +14,7 @@ import javax.net.ssl.X509TrustManager;
 
 import org.apache.http.conn.ssl.SSLSocketFactory;
 
-import com.lidroid.xutils.util.LogUtils;
+import xyz.yhsj.yhutils.tools.logutils.LogUtils;
 
 /**
  * trust all certs

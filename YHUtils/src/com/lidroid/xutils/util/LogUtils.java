@@ -25,6 +25,7 @@ import android.util.Log;
  * <p/>
  * Author: wyouflf Date: 13-7-24 Time: 下午12:23
  */
+@Deprecated
 public class LogUtils {
 
 	public static String customTagPrefix = "";
