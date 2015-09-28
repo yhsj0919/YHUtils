@@ -218,4 +218,49 @@ public class DateUtils {
 		SimpleDateFormat sdf = new SimpleDateFormat(formater);
 		return sdf.format(date);
 	}
+
+	/**
+	 * 获取当前年
+	 * 
+	 * @return 年
+	 */
+	public static String getYear() {
+		return format(getCurrentTime(), "yyyy");
+	}
+
+	/**
+	 * 获取当前月
+	 * 
+	 * @return 月
+	 */
+	public static String getMonth() {
+		return format(getCurrentTime(), "MM");
+	}
+
+	/**
+	 * 获取当前日
+	 * 
+	 * @return 日
+	 */
+	public static String getDay() {
+		return format(getCurrentTime(), "dd");
+	}
+
+	/**
+	 * 获取当前小时
+	 * 
+	 * @return 小时
+	 */
+	public static String getHour() {
+		return format(getCurrentTime(), "HH");
+	}
+
+	/**
+	 * 获取当前小时
+	 * 
+	 * @return 小时
+	 */
+	public static String getMinute() {
+		return format(getCurrentTime(), "mm");
+	}
 }
