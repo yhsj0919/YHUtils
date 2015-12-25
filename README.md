@@ -1,4 +1,7 @@
 # YHUtls
-我自己的开发库
+常用工具库，包含一些实用工具
 
-包含了xutils  和  一些实用的工具
+##StringUtils
+
+isEmpty(String string) 判断字符串是否为null或""
+
